@@ -156,6 +156,12 @@ if (project.hasProperty('graphite')) {
 if (project.hasProperty('prometheus')) {
     apply from: 'gradle/prometheus.gradle'
 }
+<%_ if (serviceDiscoveryType || applicationType === 'gateway' || applicationType === 'microservice' || applicationType === 'uaa') { _%>
+
+if (project.hasProperty('zipkin')) {
+    apply from: 'gradle/zipkin.gradle'
+}
+<%_ } _%>
 
 group = '<%= packageName %>'
 version = '0.0.1-SNAPSHOT'
@@ -195,7 +201,7 @@ dependencies {
     compile "io.dropwizard.metrics:metrics-json:" + dependencyManagement.managedVersions["io.dropwizard.metrics:metrics-core"]
     compile ("io.dropwizard.metrics:metrics-servlets")
     compile ("net.logstash.logback:logstash-logback-encoder:${logstash_logback_encoder_version}") {
-        exclude(module: 'ch.qos.logback')
+        exclude(group: 'ch.qos.logback')
     }
     compile "com.fasterxml.jackson.datatype:jackson-datatype-json-org"
     compile "com.fasterxml.jackson.datatype:jackson-datatype-hppc"
@@ -205,10 +211,7 @@ dependencies {
     <%_ } _%>
     compile "com.fasterxml.jackson.core:jackson-annotations"
     compile "com.fasterxml.jackson.core:jackson-databind"
-    compile ("com.ryantenney.metrics:metrics-spring:${metrics_spring_version}") {
-        exclude(module: 'metrics-core')
-        exclude(module: 'metrics-healthchecks')
-    }
+    compile ("com.ryantenney.metrics:metrics-spring:${metrics_spring_version}")
     <%_ if (hibernateCache === 'hazelcast') { _%>
     compile "com.hazelcast:hazelcast"
     compile "com.hazelcast:hazelcast-hibernate52:${hazelcast_hibernate52_version}"
@@ -226,9 +229,7 @@ dependencies {
     <%_ } _%>
     <%_ if (databaseType === 'sql') { _%>
     compile "org.hibernate:hibernate-core:${hibernate_version}"
-    compile ("com.zaxxer:HikariCP:${hikaricp_version}") {
-        exclude(module: 'tools')
-    }
+    compile ("com.zaxxer:HikariCP:${hikaricp_version}")
     <%_ } _%>
     <%_ if (databaseType === 'cassandra' || applicationType === 'gateway') { _%>
     compile "commons-codec:commons-codec:${commons_codec_version}"
@@ -247,9 +248,7 @@ dependencies {
     <%_ if (databaseType === 'sql') { _%>
     compile "org.hibernate:hibernate-envers"
     compile "org.hibernate:hibernate-validator"
-    compile ("org.liquibase:liquibase-core") {
-        exclude(module: 'jetty-servlet')
-    }
+    compile ("org.liquibase:liquibase-core")
     compile "com.mattbertolini:liquibase-slf4j:${liquibase_slf4j_version}"
     <%_ } _%>
     compile "org.springframework.boot:spring-boot-actuator"
@@ -272,6 +271,7 @@ dependencies {
     <%_ if (messageBroker === 'kafka') { _%>
     compile "org.springframework.cloud:spring-cloud-stream"
     compile "org.springframework.cloud:spring-cloud-stream-binder-kafka"
+    compile "org.springframework.kafka:spring-kafka:${spring_kafka_version}"
     <%_ } _%>
     compile "org.springframework.boot:spring-boot-starter-security"
     compile ("org.springframework.boot:spring-boot-starter-web") {
@@ -283,9 +283,6 @@ dependencies {
     <%_ } _%>
     compile "org.springframework.boot:spring-boot-starter-thymeleaf"
     <%_ if (databaseType === 'cassandra' || applicationType === 'gateway') { _%>
-    compile ("com.datastax.cassandra:cassandra-driver-core") {
-        exclude module: 'com.codahale.metrics'
-    }
     compile "com.datastax.cassandra:cassandra-driver-extras:" + dependencyManagement.managedVersions["com.datastax.cassandra:cassandra-driver-core"]
     compile "com.datastax.cassandra:cassandra-driver-mapping"
     <%_ } _%>
@@ -368,7 +365,7 @@ dependencies {
     testCompile "com.jayway.jsonpath:json-path"
     <%_ if (databaseType === 'cassandra') { _%>
     testCompile ("org.cassandraunit:cassandra-unit-spring:${cassandra_unit_spring_version}") {
-        exclude(module: 'org.slf4j')
+        exclude(group: 'org.slf4j')
     }
     <%_ } _%>
     <%_ if (cucumberTests) { _%>
@@ -414,7 +411,7 @@ task cleanResources(type: Delete) {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.4'
+    gradleVersion = '3.4.1'
 }
 
 task stage(dependsOn: 'bootRepackage') {
@@ -423,9 +420,9 @@ task stage(dependsOn: 'bootRepackage') {
 
 if (project.hasProperty('nodeInstall')) {
     node {
-        version = '${node_version}'
-        npmVersion = '${npm_version}'
-        yarnVersion = '${yarn_version}'
+        version = "${node_version}"
+        npmVersion = "${npm_version}"
+        yarnVersion = "${yarn_version}"
         download = true
     }
 }

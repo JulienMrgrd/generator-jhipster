@@ -43,15 +43,15 @@
             "newpassword.placeholder": "Նոր գաղտնաբառ",
             "confirmpassword": "Նոր գաղտնաբառի հաստատում",
             "confirmpassword.placeholder": "Հաստատեք նոր գաղտնաբառը",
-            "email": "E-mail",
-            "email.placeholder": "Ձեր e-mail"
+            "email": "Email",
+            "email.placeholder": "Ձեր email"
         },
         "messages": {
             "info": {
                 <%_ if (clientFramework === 'angular1') { _%>
                 "authenticated": "Եթե դուք ցանկանում եք  <a class=\"alert-link\" href=\"\" ng-click=\"vm.login()\">մուտք գործել</a>, դուք կարող եք փորձել հետևյալ հաշիվները:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\").",
                 "register": "Դուք դեռ չունե՞ք հաշիվ <a class=\"alert-link\" href=\"\" ng-click=\"vm.register()\">Գրանցել նոր հաշիվ</a>"
-                <%_ } else if (clientFramework === 'angular2') { _%>
+                <%_ } else { _%>
                 "authenticated": {
                     "prefix": "Եթե դուք ցանկանում եք ",
                     "link": "Մուտք գործել",
@@ -79,10 +79,10 @@
                     "maxlength": "Գաղտնաբառի հաստատումը չի կարող լինել ավելի երկար, քան 50 նիշ:"
                 },
                 "email": {
-                    "required": "Ձեր e-mail պետք է նշված լինի:",
-                    "invalid": "Ձեր e-mail պետք է նշված լինի:",
-                    "minlength": "Ձեր e-mail երկարության հաստատումը պետք է լինի առնվազն 5 նիշ:",
-                    "maxlength": "Ձեր e-mail հաստատումը չի կարող լինել ավելի երկար, քան 50 նիշ:"
+                    "required": "Ձեր email պետք է նշված լինի:",
+                    "invalid": "Ձեր email պետք է նշված լինի:",
+                    "minlength": "Ձեր email երկարության հաստատումը պետք է լինի առնվազն 5 նիշ:",
+                    "maxlength": "Ձեր email հաստատումը չի կարող լինել ավելի երկար, քան 50 նիշ:"
                 }
             }
         },
@@ -132,7 +132,7 @@
         "NotNull": "Դաշտը {{ fieldName }} չի կարող լինել դատարկ!",
         "Size": "Դաշտը {{ fieldName }} չի համապատասխանում փոքրագ./առավելագ. չափերին!",
         "userexists": "Օգտվողի անունը արդեն օգտագործվում է!",
-        "emailexists": "E-mail արդեն օգտագործվում է!",
+        "emailexists": "Email արդեն օգտագործվում է!",
         "idexists": "Նորը {{ entityName }} չի կարող ունենալ ID"
     },
     "footer": "Սա Ձեր footer է"

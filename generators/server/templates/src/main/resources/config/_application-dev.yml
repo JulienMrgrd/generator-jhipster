@@ -18,12 +18,7 @@ eureka:
     instance:
         prefer-ip-address: true
     client:
-        enabled: true
-        healthcheck:
-            enabled: true
-        registerWithEureka: true
-        fetchRegistry: true
-        serviceUrl:
+        service-url:
             defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
 <%_ } _%>
 
@@ -183,6 +178,14 @@ spring:
         cache-seconds: 1
     thymeleaf:
         cache: false
+<%_ if (serviceDiscoveryType || applicationType === 'gateway' || applicationType === 'microservice' || applicationType === 'uaa') { _%>
+    zipkin: # Use the "zipkin" Maven profile to have the Spring Cloud Zipkin dependencies
+        base-url: http://localhost:9411
+        enabled: false
+        locator:
+            discovery:
+                enabled: true
+<%_ } _%>
 <%_ if (databaseType === 'sql') { _%>
 
 liquibase:
@@ -238,7 +241,7 @@ jhipster:
             max-entries: 100 # Number of objects in each cache entry
         <%_ } _%>
     <%_ } _%>
-   <%_ if (websocket === 'spring-websocket') { _%>
+    # CORS is only enabled by default with the "dev" profile, so BrowserSync can access the API
     cors:
         allowed-origins: "*"
         allowed-methods: GET, PUT, POST, DELETE, OPTIONS
@@ -246,7 +249,6 @@ jhipster:
         exposed-headers:
         allow-credentials: true
         max-age: 1800
-    <%_ } _%>
     <%_ if (authenticationType == 'jwt') { _%>
     security:
         authentication:
@@ -296,7 +298,7 @@ jhipster:
             endpoint: /prometheusMetrics
         logs: # Reports Dropwizard metrics in the logs
             enabled: false
-            reportFrequency: 60 # in seconds
+            report-frequency: 60 # in seconds
     logging:
         logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
             enabled: false

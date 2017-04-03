@@ -12,9 +12,17 @@ import { ITEMS_PER_PAGE } from '../../../../../../main/webapp/app/shared';
 function getDate(isToday= true){
     let date: Date = new Date();
     if (isToday) {
-        return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate() + 1}`;
+        // Today + 1 day - needed if the current day must be included
+        date.setDate(date.getDate() + 1);
+    } else {
+      // get last month
+      if(date.getMonth() === 0) {
+        date = new Date(date.getFullYear() - 1, 11, date.getDate());
+      } else {
+        date = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate());
+      }
     }
-    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
 }
 
 describe('Component Tests', () => {
@@ -59,7 +67,7 @@ describe('Component Tests', () => {
         });
 
         describe('previousMonth function ', () => {
-            it('should set toDate to current date', () => {
+            it('should set fromDate to current date', () => {
                comp.previousMonth();
                expect(comp.fromDate).toBe(getDate(false));
             });
