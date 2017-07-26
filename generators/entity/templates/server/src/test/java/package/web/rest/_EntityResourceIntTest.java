@@ -477,7 +477,10 @@ _%>
         int databaseSizeBeforeUpdate = <%= entityInstance %>Repository.findAll().size();
 
         // Update the <%= entityInstance %>
-        <%= entityClass %> updated<%= entityClass %> = <%= entityInstance %>Repository.findOne(<%= entityInstance %>.getId());
+        Optional<<%= entityClass %>> optionnalUpdated<%= entityClass %> = <%= entityInstance %>Repository.<%_ if (databaseType !== 'cassandra') { _%>findById<%_ } else { _%>findOne<%_ }_%>(<%= entityInstance %>.getId());
+        assertTrue(optionnalUpdated<%= entityClass %>.isPresent());
+        <%= entityClass %> updated<%= entityClass %> = optionnalUpdated<%= entityClass %>.get();
+
         <%_ if (fluentMethods && fields.length > 0) { _%>
         updated<%= entityClass %><% for (idx in fields) { %>
             .<%= fields[idx].fieldName %>(<%='UPDATED_' + fields[idx].fieldNameUnderscored.toUpperCase()%>)<% if ((fields[idx].fieldType === 'byte[]' || fields[idx].fieldType === 'ByteBuffer') && fields[idx].fieldTypeBlobContent !== 'text') { %>
