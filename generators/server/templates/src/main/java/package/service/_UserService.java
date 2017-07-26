@@ -156,7 +156,7 @@ public class UserService {
         String imageUrl<% } %>, String langKey) {
 
         User newUser = new User();<% if (databaseType === 'sql' || databaseType === 'mongodb') { %>
-        Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
+        Optional<Authority> authority = authorityRepository.findById(AuthoritiesConstants.USER);
         Set<Authority> authorities = new HashSet<>();<% } %><% if (databaseType === 'cassandra') { %>
         newUser.setId(UUID.randomUUID().toString());
         Set<String> authorities = new HashSet<>();<% } %>
@@ -176,7 +176,9 @@ public class UserService {
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         <%_ if (databaseType === 'sql' || databaseType === 'mongodb') { _%>
-        authorities.add(authority);
+        if(authority.isPresent()) {
+            authorities.add(authority);
+        }
         <%_ } _%>
         <%_ if (databaseType === 'cassandra') { _%>
         authorities.add(AuthoritiesConstants.USER);
