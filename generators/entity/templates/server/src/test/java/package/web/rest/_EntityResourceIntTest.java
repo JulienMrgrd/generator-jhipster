@@ -61,12 +61,14 @@ import java.time.ZonedDateTime;
 import java.time.ZoneOffset;<% } %><% if (fieldsContainLocalDate === true || fieldsContainZonedDateTime === true) { %>
 import java.time.ZoneId;<% } %><% if (fieldsContainInstant === true) { %>
 import java.time.temporal.ChronoUnit;<% } %>
-import java.util.List;<% if (databaseType === 'cassandra') { %>
+import java.util.List;
+import java.util.Optional;<% if (databaseType === 'cassandra') { %>
 import java.util.UUID;<% } %>
 <% if (fieldsContainZonedDateTime === true) { %>
 import static <%=packageName%>.web.rest.TestUtil.sameInstant;<% } %>
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.junit.Assert.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -477,9 +479,9 @@ _%>
         int databaseSizeBeforeUpdate = <%= entityInstance %>Repository.findAll().size();
 
         // Update the <%= entityInstance %>
-        Optional<<%= entityClass %>> optionnalUpdated<%= entityClass %> = <%= entityInstance %>Repository.<%_ if (databaseType !== 'cassandra') { _%>findById<%_ } else { _%>findOne<%_ }_%>(<%= entityInstance %>.getId());
-        assertTrue(optionnalUpdated<%= entityClass %>.isPresent());
-        <%= entityClass %> updated<%= entityClass %> = optionnalUpdated<%= entityClass %>.get();
+        Optional<<%= entityClass %>> optionalUpdated<%= entityClass %> = <%= entityInstance %>Repository.<%_ if (databaseType !== 'cassandra') { _%>findById<%_ } else { _%>findOne<%_ }_%>(<%= entityInstance %>.getId());
+        assertTrue(optionalUpdated<%= entityClass %>.isPresent());
+        <%= entityClass %> updated<%= entityClass %> = optionalUpdated<%= entityClass %>.get();
 
         <%_ if (fluentMethods && fields.length > 0) { _%>
         updated<%= entityClass %><% for (idx in fields) { %>

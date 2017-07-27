@@ -457,9 +457,9 @@ public class UserResourceIntTest <% if (databaseType === 'cassandra') { %>extend
         int databaseSizeBeforeUpdate = userRepository.findAll().size();
 
         // Update the user
-        Optional<User> optionnalUpdatedUser = userRepository.<%_ if (databaseType !== 'cassandra') { _%>findById<%_ } else { _%>findOne<%_ }_%>(user.getId());
-        assertTrue(optionnalUpdatedUser.isPresent());
-        User updatedUser = optionnalUpdatedUser.get();
+        Optional<User> optionalUpdatedUser = userRepository.<%_ if (databaseType !== 'cassandra') { _%>findById<%_ } else { _%>findOne<%_ }_%>(user.getId());
+        assertTrue(optionalUpdatedUser.isPresent());
+        User updatedUser = optionalUpdatedUser.get();
 
         Set<String> authorities = new HashSet<>();
         authorities.add("ROLE_USER");
@@ -514,9 +514,9 @@ public class UserResourceIntTest <% if (databaseType === 'cassandra') { %>extend
         int databaseSizeBeforeUpdate = userRepository.findAll().size();
 
         // Update the user
-        Optional<User> optionnalUpdatedUser = userRepository.<%_ if (databaseType !== 'cassandra') { _%>findById<%_ } else { _%>findOne<%_ }_%>(user.getId());
-        assertTrue(optionnalUpdatedUser.isPresent());
-        User updatedUser = optionnalUpdatedUser.get();
+        Optional<User> optionalUpdatedUser = userRepository.<%_ if (databaseType !== 'cassandra') { _%>findById<%_ } else { _%>findOne<%_ }_%>(user.getId());
+        assertTrue(optionalUpdatedUser.isPresent());
+        User updatedUser = optionalUpdatedUser.get();
 
         Set<String> authorities = new HashSet<>();
         authorities.add("ROLE_USER");
@@ -590,9 +590,9 @@ public class UserResourceIntTest <% if (databaseType === 'cassandra') { %>extend
         <%_ } _%>
 
         // Update the user
-        Optional<User> optionnalUpdatedUser = userRepository.<%_ if (databaseType !== 'cassandra') { _%>findById<%_ } else { _%>findOne<%_ }_%>(user.getId());
-        assertTrue(optionnalUpdatedUser.isPresent());
-        User updatedUser = optionnalUpdatedUser.get();
+        Optional<User> optionalUpdatedUser = userRepository.<%_ if (databaseType !== 'cassandra') { _%>findById<%_ } else { _%>findOne<%_ }_%>(user.getId());
+        assertTrue(optionalUpdatedUser.isPresent());
+        User updatedUser = optionalUpdatedUser.get();
 
         Set<String> authorities = new HashSet<>();
         authorities.add("ROLE_USER");
@@ -653,9 +653,9 @@ public class UserResourceIntTest <% if (databaseType === 'cassandra') { %>extend
         <%_ } _%>
 
         // Update the user
-        Optional<User> optionnalUpdatedUser = userRepository.<%_ if (databaseType !== 'cassandra') { _%>findById<%_ } else { _%>findOne<%_ }_%>(user.getId());
-        assertTrue(optionnalUpdatedUser.isPresent());
-        User updatedUser = optionnalUpdatedUser.get();
+        Optional<User> optionalUpdatedUser = userRepository.<%_ if (databaseType !== 'cassandra') { _%>findById<%_ } else { _%>findOne<%_ }_%>(user.getId());
+        assertTrue(optionalUpdatedUser.isPresent());
+        User updatedUser = optionalUpdatedUser.get();
 
         Set<String> authorities = new HashSet<>();
         authorities.add("ROLE_USER");
