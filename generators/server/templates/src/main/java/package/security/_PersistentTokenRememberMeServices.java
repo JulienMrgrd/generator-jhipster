@@ -217,9 +217,9 @@ public class PersistentTokenRememberMeServices extends
         }
         String presentedSeries = cookieTokens[0];
         String presentedToken = cookieTokens[1];
-        Optional<PersistentToken> token = persistentTokenRepository.findOne(presentedSeries);
+        Optional<PersistentToken> token = persistentTokenRepository.findById(presentedSeries);
 
-        if (token.isPresent()) {
+        if (!token.isPresent()) {
             // No series match, so we can't authenticate using this cookie
             throw new RememberMeAuthenticationException("No persistent token found for series id: " + presentedSeries);
         }
@@ -233,12 +233,12 @@ public class PersistentTokenRememberMeServices extends
                 "cookie theft attack.");
         }
 <% if (databaseType === 'sql' || databaseType === 'mongodb') { %>
-        if (token.getTokenDate().plusDays(TOKEN_VALIDITY_DAYS).isBefore(LocalDate.now())) {<%}%><% if (databaseType === 'cassandra') { %>
-        if (token.getTokenDate().toInstant().plus(TOKEN_VALIDITY_DAYS, ChronoUnit.DAYS).isBefore((new Date()).toInstant())) {<%}%>
-            persistentTokenRepository.delete(token);
+        if (token.get().getTokenDate().plusDays(TOKEN_VALIDITY_DAYS).isBefore(LocalDate.now())) {<%}%><% if (databaseType === 'cassandra') { %>
+        if (token.get().getTokenDate().toInstant().plus(TOKEN_VALIDITY_DAYS, ChronoUnit.DAYS).isBefore((new Date()).toInstant())) {<%}%>
+            persistentTokenRepository.delete(token.get());
             throw new RememberMeAuthenticationException("Remember-me login has expired");
         }
-        return token;
+        return token.get();
     }
 
     private void addCookie(PersistentToken token, HttpServletRequest request, HttpServletResponse response) {
