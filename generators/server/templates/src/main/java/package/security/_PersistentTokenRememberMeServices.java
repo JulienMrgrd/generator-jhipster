@@ -216,18 +216,18 @@ public class PersistentTokenRememberMeServices extends
         }
         String presentedSeries = cookieTokens[0];
         String presentedToken = cookieTokens[1];
-        PersistentToken token = persistentTokenRepository.findOne(presentedSeries);
+        Optional<PersistentToken> token = persistentTokenRepository.findOne(presentedSeries);
 
-        if (token == null) {
+        if (token.isPresent()) {
             // No series match, so we can't authenticate using this cookie
             throw new RememberMeAuthenticationException("No persistent token found for series id: " + presentedSeries);
         }
 
         // We have a match for this user/series combination
-        log.info("presentedToken={} / tokenValue={}", presentedToken, token.getTokenValue());
-        if (!presentedToken.equals(token.getTokenValue())) {
+        log.info("presentedToken={} / tokenValue={}", presentedToken, token.get().getTokenValue());
+        if (!presentedToken.equals(token.get().getTokenValue())) {
             // Token doesn't match series value. Delete this session and throw an exception.
-            persistentTokenRepository.delete(token);
+            persistentTokenRepository.delete(token.get());
             throw new CookieTheftException("Invalid remember-me token (Series/token) mismatch. Implies previous " +
                 "cookie theft attack.");
         }
