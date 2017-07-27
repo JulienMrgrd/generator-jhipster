@@ -368,8 +368,9 @@ _%>
         <%_ }} if (searchEngine === 'elasticsearch') { _%>
 
         // Validate the <%= entityClass %> in Elasticsearch
-        <%= entityClass %> <%= entityInstance %>Es = <%= entityInstance %>SearchRepository.findOne(test<%= entityClass %>.getId());
-        assertThat(<%= entityInstance %>Es).isEqualToComparingFieldByField(test<%= entityClass %>);
+        Optional<<%= entityClass %>> <%= entityInstance %>Es = <%= entityInstance %>SearchRepository.findById(test<%= entityClass %>.getId());
+        assertTrue(<%= entityInstance %>Es.isPresent());
+        assertThat(<%= entityInstance %>Es.get()).isEqualToComparingFieldByField(test<%= entityClass %>);
         <%_ } _%>
     }
 
@@ -520,8 +521,9 @@ _%>
         <%_ } } if (searchEngine === 'elasticsearch') { _%>
 
         // Validate the <%= entityClass %> in Elasticsearch
-        <%= entityClass %> <%= entityInstance %>Es = <%= entityInstance %>SearchRepository.findOne(test<%= entityClass %>.getId());
-        assertThat(<%= entityInstance %>Es).isEqualToComparingFieldByField(test<%= entityClass %>);
+        Optional<<%= entityClass %>> <%= entityInstance %>Es = <%= entityInstance %>SearchRepository.findById(test<%= entityClass %>.getId());
+        assertTrue(<%= entityInstance %>Es.isPresent());
+        assertThat(<%= entityInstance %>Es.get()).isEqualToComparingFieldByField(test<%= entityClass %>);
         <%_ } _%>
     }
 
@@ -563,7 +565,7 @@ _%>
             .andExpect(status().isOk());<% if (searchEngine === 'elasticsearch') { %>
 
         // Validate Elasticsearch is empty
-        boolean <%= entityInstance %>ExistsInEs = <%= entityInstance %>SearchRepository.exists(<%= entityInstance %>.getId());
+        boolean <%= entityInstance %>ExistsInEs = <%= entityInstance %>SearchRepository.existsById(<%= entityInstance %>.getId());
         assertThat(<%= entityInstance %>ExistsInEs).isFalse();<% } %>
 
         // Validate the database is empty
