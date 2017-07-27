@@ -177,7 +177,7 @@ public class UserService {
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         <%_ if (databaseType === 'sql' || databaseType === 'mongodb') { _%>
         if(authority.isPresent()) {
-            authorities.add(authority);
+            authorities.add(authority.get());
         }
         <%_ } _%>
         <%_ if (databaseType === 'cassandra') { _%>
@@ -209,7 +209,7 @@ public class UserService {
         if (userDTO.getAuthorities() != null) {
             Set<Authority> authorities = new HashSet<>();
             userDTO.getAuthorities().forEach(
-                authority -> authorities.add(authorityRepository.findOne(authority))
+                authority -> authorityRepository.findById(authority).ifPresent(authorities::add)
             );
             user.setAuthorities(authorities);
         }
