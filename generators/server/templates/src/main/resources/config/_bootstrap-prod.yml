@@ -49,7 +49,7 @@ spring:
       <%_ } _%>
 <%_ if (serviceDiscoveryType === 'eureka') { _%>
 
-jhipster:
+thomas:
     registry:
         password: admin
 <%_ } _%>

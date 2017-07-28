@@ -61,7 +61,7 @@ objects:
               # This must contain a list of all Eureka server replicas for registry HA to work correctly
               defaultZone: <% for(let i = 0; i < registryReplicas; i++){ %>http://admin:${jhipster.registry.password}@jhipster-registry-<%- i %>.jhipster-registry/eureka/<% if (i < registryReplicas-1) { _%>,<% }} %>
         <%_ } _%>
-        jhipster:
+        thomas:
           security:
             authentication:
               jwt:

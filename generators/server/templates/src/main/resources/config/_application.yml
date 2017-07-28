@@ -182,7 +182,7 @@ info:
 # Full reference is available at: https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
-jhipster:
+thomas:
     async:
         core-pool-size: 2
         max-pool-size: 50

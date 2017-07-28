@@ -216,7 +216,7 @@ server:
 # Full reference is available at: https://jhipster.github.io/common-application-properties/
 # ===================================================================
 
-jhipster:
+thomas:
     <%_ if (applicationType === 'gateway') { _%>
     gateway:
         rate-limiting:
