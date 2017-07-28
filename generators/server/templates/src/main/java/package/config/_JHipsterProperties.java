@@ -34,7 +34,7 @@ import org.springframework.web.cors.CorsConfiguration;
 @ConfigurationProperties(prefix = "jhipster", ignoreUnknownFields = true, ignoreInvalidFields = true)
 public class JHipsterProperties {
 
-    @Bean(name = "jhipsterProperties")
+    @Bean(name = "jHipsterProperties")
     public JHipsterProperties jHipsterProperties() {
         return new JHipsterProperties();
     }
