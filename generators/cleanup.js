@@ -66,7 +66,6 @@ function cleanupOldServerFiles(generator, javaDir, testDir) {
     if (generator.isJhipsterVersionLessThan('4.0.0')) {
         generator.removeFile(`${javaDir}async/ExceptionHandlingAsyncTaskExecutor.java`);
         generator.removeFile(`${javaDir}async/package-info.java`);
-        generator.removeFile(`${javaDir}config/jHipsterProperties.java`);
         generator.removeFile(`${javaDir}config/LoadBalancedResourceDetails.java`);
         generator.removeFile(`${javaDir}config/ElasticSearchConfiguration.java`);
         generator.removeFile(`${javaDir}config/apidoc/package-info.java`);
