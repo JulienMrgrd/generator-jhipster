@@ -327,6 +327,9 @@ function writeFiles() {
             this.template(`${SERVER_MAIN_SRC_DIR}package/aop/logging/_LoggingAspect.java`, `${javaDir}aop/logging/LoggingAspect.java`);
             this.template(`${SERVER_MAIN_SRC_DIR}package/config/_DefaultProfileUtil.java`, `${javaDir}config/DefaultProfileUtil.java`);
 
+            // TODO: delete
+            this.template(`${SERVER_MAIN_SRC_DIR}package/web/filter/_CachingHttpHeadersFilter.java`, `${javaDir}web/filter/CachingHttpHeadersFilter.java`);
+
             this.template(`${SERVER_MAIN_SRC_DIR}package/config/_package-info.java`, `${javaDir}config/package-info.java`);
             this.template(`${SERVER_MAIN_SRC_DIR}package/config/_AsyncConfiguration.java`, `${javaDir}config/AsyncConfiguration.java`);
             if (this.hibernateCache === 'ehcache' || this.hibernateCache === 'hazelcast' || this.hibernateCache === 'infinispan' || this.clusteredHttpSession === 'hazelcast' || this.applicationType === 'gateway') {

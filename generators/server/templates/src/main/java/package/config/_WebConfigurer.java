@@ -19,7 +19,7 @@
 package <%=packageName%>.config;
 
 import io.github.jhipster.config.JHipsterConstants;<% if (!skipClient) { %>
-import io.github.jhipster.web.filter.CachingHttpHeadersFilter;<% } %>
+import <%=packageName%>.web.filter.CachingHttpHeadersFilter;<% } %>
 import io.undertow.UndertowOptions;
 
 import com.codahale.metrics.MetricRegistry;
