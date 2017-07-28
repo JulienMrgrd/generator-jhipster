@@ -18,7 +18,6 @@
 -%>
 package <%=packageName%>.config;
 
-import io.github.jhipster.config.JHipsterProperties;
 <%_ if (applicationType === 'microservice' || applicationType === 'gateway') { _%>
 import io.github.jhipster.config.metrics.SpectatorLogMetricWriter;
 

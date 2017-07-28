@@ -19,7 +19,6 @@
 package <%=packageName%>.config;
 <%_ if (hibernateCache === 'ehcache') { _%>
 
-import io.github.jhipster.config.JHipsterProperties;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.expiry.Duration;
@@ -32,7 +31,6 @@ import java.util.concurrent.TimeUnit;
 <%_ if (hibernateCache === 'hazelcast' || clusteredHttpSession === 'hazelcast') { _%>
 
 import io.github.jhipster.config.JHipsterConstants;
-import io.github.jhipster.config.JHipsterProperties;
 
 import com.hazelcast.config.Config;
 import com.hazelcast.core.HazelcastInstance;
@@ -83,7 +81,6 @@ import infinispan.autoconfigure.embedded.InfinispanCacheConfigurer;
 import infinispan.autoconfigure.embedded.InfinispanGlobalConfigurer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import io.github.jhipster.config.JHipsterProperties;
 import java.util.concurrent.TimeUnit;
 import org.infinispan.eviction.EvictionType;
 import org.infinispan.manager.EmbeddedCacheManager;

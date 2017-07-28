@@ -20,7 +20,7 @@ package <%=packageName%>.web.rest;
 
 import <%=packageName%>.config.DefaultProfileUtil;
 
-import io.github.jhipster.config.JHipsterProperties;
+import jhipster.reactive.config.JHipsterProperties;
 
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;

@@ -20,8 +20,6 @@ package <%=packageName%>.config;
 
 import <%=packageName%>.security.AuthoritiesConstants;
 
-import io.github.jhipster.config.JHipsterProperties;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;

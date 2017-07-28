@@ -18,8 +18,6 @@
 -%>
 package <%=packageName%>.config;
 
-import io.github.jhipster.config.JHipsterProperties;
-
 import <%=packageName%>.gateway.ratelimiting.RateLimitingFilter;
 import <%=packageName%>.gateway.accesscontrol.AccessControlFilter;
 import <%=packageName%>.gateway.responserewriting.SwaggerBasePathRewritingFilter;

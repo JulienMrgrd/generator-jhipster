@@ -18,7 +18,7 @@
 -%>
 package <%=packageName%>.web.filter;
 
-import io.github.jhipster.config.JHipsterProperties;
+import jhipster.reactive.config.JHipsterProperties;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;

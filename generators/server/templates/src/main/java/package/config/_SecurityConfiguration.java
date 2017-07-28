@@ -26,7 +26,6 @@ import <%=packageName%>.security.jwt.*;
 <%_ } _%>
 
 <%_ if (authenticationType === 'session') { _%>
-import io.github.jhipster.config.JHipsterProperties;
 <%_ } _%>
 import io.github.jhipster.security.*;
 
@@ -260,4 +259,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
         return new SecurityEvaluationContextExtension();
     }
+
 }

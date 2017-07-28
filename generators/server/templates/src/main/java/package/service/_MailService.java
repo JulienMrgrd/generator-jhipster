@@ -20,7 +20,7 @@ package <%=packageName%>.service;
 
 import <%=packageName%>.domain.User;
 
-import io.github.jhipster.config.JHipsterProperties;
+import jhipster.reactive.config.JHipsterProperties;
 
 import org.apache.commons.lang3.CharEncoding;
 import org.slf4j.Logger;

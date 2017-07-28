@@ -19,7 +19,7 @@
 package <%=packageName%>.config;
 
 import io.github.jhipster.config.JHipsterConstants;
-import io.github.jhipster.config.JHipsterProperties;<% if (!skipClient) { %>
+import jhipster.reactive.config.JHipsterProperties;<% if (!skipClient) { %>
 import io.github.jhipster.web.filter.CachingHttpHeadersFilter;<% } %>
 import io.undertow.UndertowOptions;
 
@@ -276,4 +276,5 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
     public void setMetricRegistry(MetricRegistry metricRegistry) {
         this.metricRegistry = metricRegistry;
     }
+
 }
