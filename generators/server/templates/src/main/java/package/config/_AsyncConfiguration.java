@@ -38,7 +38,7 @@ public class AsyncConfiguration implements AsyncConfigurer {
 
     private final Logger log = LoggerFactory.getLogger(AsyncConfiguration.class);
 
-    @AutoWired
+    @Autowired
     private JHipsterProperties jHipsterProperties;
 
     public AsyncConfiguration() {}
