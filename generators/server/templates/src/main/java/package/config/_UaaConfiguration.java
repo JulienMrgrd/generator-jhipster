@@ -55,13 +55,13 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
 
         private final TokenStore tokenStore;
 
-        private final JHipsterProperties jHipsterProperties;
+        private final JHipsterProperties jHipsterTestProperties;
 
         private final CorsFilter corsFilter;
 
-        public ResourceServerConfiguration(TokenStore tokenStore, JHipsterProperties jHipsterProperties, CorsFilter corsFilter) {
+        public ResourceServerConfiguration(TokenStore tokenStore, JHipsterProperties jHipsterTestProperties, CorsFilter corsFilter) {
             this.tokenStore = tokenStore;
-            this.jHipsterProperties = jHipsterProperties;
+            this.jHipsterTestProperties = jHipsterTestProperties;
             this.corsFilter = corsFilter;
         }
 
@@ -104,10 +104,10 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
         }
     }
 
-    private final JHipsterProperties jHipsterProperties;
+    private final JHipsterProperties jHipsterTestProperties;
 
-    public UaaConfiguration(JHipsterProperties jHipsterProperties) {
-        this.jHipsterProperties = jHipsterProperties;
+    public UaaConfiguration(JHipsterProperties jHipsterTestProperties) {
+        this.jHipsterTestProperties = jHipsterTestProperties;
     }
 
     @Override
@@ -121,8 +121,8 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
             .autoApprove(true)
             .authorizedGrantTypes("implicit","refresh_token", "password", "authorization_code")
             .and()
-            .withClient(jHipsterProperties.getSecurity().getClientAuthorization().getClientId())
-            .secret(jHipsterProperties.getSecurity().getClientAuthorization().getClientSecret())
+            .withClient(jHipsterTestProperties.getSecurity().getClientAuthorization().getClientId())
+            .secret(jHipsterTestProperties.getSecurity().getClientAuthorization().getClientSecret())
             .scopes("web-app")
             .autoApprove(true)
             .authorizedGrantTypes("client_credentials");

@@ -35,6 +35,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 <%_ if (clusteredHttpSession === 'hazelcast') { _%>
 import org.springframework.boot.autoconfigure.hazelcast.HazelcastAutoConfiguration;
 <%_ } _%>
+import org.springframework.context.annotation.Bean;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 <%_ if (serviceDiscoveryType) { _%>
@@ -133,5 +134,11 @@ public class <%= mainClass %> {
                 "Config Server: \t{}\n----------------------------------------------------------",
             configServerStatus == null ? "Not found or not setup for this application" : configServerStatus);
         <%_ } _%>
+    }
+
+    // TODO: delete ?
+    @Bean
+    public JHipsterProperties jHipsterTestProperties(){
+        return new JHipsterProperties();
     }
 }

@@ -52,7 +52,7 @@ import static org.mockito.Mockito.*;
 public class MailServiceIntTest <% if (databaseType === 'cassandra') { %>extends AbstractCassandraTest <% } %>{
 
     @Autowired
-    private JHipsterProperties jHipsterProperties;
+    private JHipsterProperties jHipsterTestProperties;
 
     @Autowired
     private MessageSource messageSource;
@@ -72,7 +72,7 @@ public class MailServiceIntTest <% if (databaseType === 'cassandra') { %>extends
     public void setup() {
         MockitoAnnotations.initMocks(this);
         doNothing().when(javaMailSender).send(any(MimeMessage.class));
-        mailService = new MailService(jHipsterProperties, javaMailSender, messageSource, templateEngine);
+        mailService = new MailService(jHipsterTestProperties, javaMailSender, messageSource, templateEngine);
     }
 
     @Test

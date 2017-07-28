@@ -60,7 +60,7 @@ public class ProfileInfoResourceIntTest <% if (databaseType === 'cassandra') { %
     private Environment environment;
 
     @Mock
-    private JHipsterProperties jHipsterProperties;
+    private JHipsterProperties jHipsterTestProperties;
 
     private MockMvc restProfileMockMvc;
 
@@ -70,13 +70,13 @@ public class ProfileInfoResourceIntTest <% if (databaseType === 'cassandra') { %
         String mockProfile[] = {"test"};
         JHipsterProperties.Ribbon ribbon = new JHipsterProperties.Ribbon();
         ribbon.setDisplayOnActiveProfiles(mockProfile);
-        when(jHipsterProperties.getRibbon()).thenReturn(ribbon);
+        when(jHipsterTestProperties.getRibbon()).thenReturn(ribbon);
 
         String activeProfiles[] = {"test"};
         when(environment.getDefaultProfiles()).thenReturn(activeProfiles);
         when(environment.getActiveProfiles()).thenReturn(activeProfiles);
 
-        ProfileInfoResource profileInfoResource = new ProfileInfoResource(environment, jHipsterProperties);
+        ProfileInfoResource profileInfoResource = new ProfileInfoResource(environment, jHipsterTestProperties);
         this.restProfileMockMvc = MockMvcBuilders
             .standaloneSetup(profileInfoResource)
             .build();
@@ -93,7 +93,7 @@ public class ProfileInfoResourceIntTest <% if (databaseType === 'cassandra') { %
     public void getProfileInfoWithoutRibbon() throws Exception {
         JHipsterProperties.Ribbon ribbon = new JHipsterProperties.Ribbon();
         ribbon.setDisplayOnActiveProfiles(null);
-        when(jHipsterProperties.getRibbon()).thenReturn(ribbon);
+        when(jHipsterTestProperties.getRibbon()).thenReturn(ribbon);
 
         restProfileMockMvc.perform(get("/api/profile-info"))
             .andExpect(status().isOk())

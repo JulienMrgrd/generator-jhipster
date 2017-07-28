@@ -49,17 +49,17 @@ public class LoggingConfiguration {
     private final String instanceId;
     <%_ } _%>
 
-    private final JHipsterProperties jHipsterProperties;
+    private final JHipsterProperties jHipsterTestProperties;
 
     public LoggingConfiguration(@Value("${spring.application.name}") String appName, @Value("${server.port}") String serverPort,
-        <% if (serviceDiscoveryType === "eureka") { %>@Value("${eureka.instance.instanceId}") String instanceId,<% } %><% if (serviceDiscoveryType === "consul") { %>@Value("${spring.cloud.consul.discovery.instanceId}") String instanceId,<% } %> JHipsterProperties jHipsterProperties) {
+        <% if (serviceDiscoveryType === "eureka") { %>@Value("${eureka.instance.instanceId}") String instanceId,<% } %><% if (serviceDiscoveryType === "consul") { %>@Value("${spring.cloud.consul.discovery.instanceId}") String instanceId,<% } %> JHipsterProperties jHipsterTestProperties) {
         this.appName = appName;
         this.serverPort = serverPort;
         <%_ if (serviceDiscoveryType !== false) { _%>
         this.instanceId = instanceId;
         <%_ } _%>
-        this.jHipsterProperties = jHipsterProperties;
-        if (jHipsterProperties.getLogging().getLogstash().isEnabled()) {
+        this.jHipsterTestProperties = jHipsterTestProperties;
+        if (jHipsterTestProperties.getLogging().getLogstash().isEnabled()) {
             addLogstashAppender(context);
 
             // Add context listener
@@ -83,8 +83,8 @@ public class LoggingConfiguration {
         <%_ } _%>
 
         // Set the Logstash appender config from JHipster properties
-        logstashAppender.setSyslogHost(jHipsterProperties.getLogging().getLogstash().getHost());
-        logstashAppender.setPort(jHipsterProperties.getLogging().getLogstash().getPort());
+        logstashAppender.setSyslogHost(jHipsterTestProperties.getLogging().getLogstash().getHost());
+        logstashAppender.setPort(jHipsterTestProperties.getLogging().getLogstash().getPort());
         logstashAppender.setCustomFields(customFields);
 
         // Limit the maximum length of the forwarded stacktrace so that it won't exceed the 8KB UDP limit of logstash
@@ -99,7 +99,7 @@ public class LoggingConfiguration {
         AsyncAppender asyncLogstashAppender = new AsyncAppender();
         asyncLogstashAppender.setContext(context);
         asyncLogstashAppender.setName("ASYNC_LOGSTASH");
-        asyncLogstashAppender.setQueueSize(jHipsterProperties.getLogging().getLogstash().getQueueSize());
+        asyncLogstashAppender.setQueueSize(jHipsterTestProperties.getLogging().getLogstash().getQueueSize());
         asyncLogstashAppender.addAppender(logstashAppender);
         asyncLogstashAppender.start();
 

@@ -123,9 +123,9 @@ public class CacheConfiguration {
 
     private final javax.cache.configuration.Configuration<Object, Object> jcacheConfiguration;
 
-    public CacheConfiguration(JHipsterProperties jHipsterProperties) {
+    public CacheConfiguration(JHipsterProperties jHipsterTestProperties) {
         JHipsterProperties.Cache.Ehcache ehcache =
-            jHipsterProperties.getCache().getEhcache();
+            jHipsterTestProperties.getCache().getEhcache();
 
         jcacheConfiguration = Eh107Configuration.fromEhcacheCacheConfiguration(
             CacheConfigurationBuilder.newCacheConfigurationBuilder(Object.class, Object.class,
@@ -196,7 +196,7 @@ public class CacheConfiguration {
     }
 
     @Bean
-    public HazelcastInstance hazelcastInstance(JHipsterProperties jHipsterProperties) {
+    public HazelcastInstance hazelcastInstance(JHipsterProperties jHipsterTestProperties) {
         log.debug("Configuring Hazelcast");
         HazelcastInstance hazelCastInstance = Hazelcast.getHazelcastInstanceByName("<%=baseName%>");
         if (hazelCastInstance != null) {
@@ -251,10 +251,10 @@ public class CacheConfiguration {
         <%_ } _%>
         config.getMapConfigs().put("default", initializeDefaultMapConfig());
         <%_ if (hibernateCache === 'hazelcast') { _%>
-        config.getMapConfigs().put("<%=packageName%>.domain.*", initializeDomainMapConfig(jHipsterProperties));
+        config.getMapConfigs().put("<%=packageName%>.domain.*", initializeDomainMapConfig(jHipsterTestProperties));
         <%_ } _%>
         <%_ if (clusteredHttpSession === 'hazelcast') { _%>
-        config.getMapConfigs().put("clustered-http-sessions", initializeClusteredSession(jHipsterProperties));
+        config.getMapConfigs().put("clustered-http-sessions", initializeClusteredSession(jHipsterTestProperties));
         <%_ } _%>
         return Hazelcast.newHazelcastInstance(config);
     }
@@ -290,18 +290,18 @@ public class CacheConfiguration {
     }
     <%_ if (hibernateCache === 'hazelcast') { _%>
 
-    private MapConfig initializeDomainMapConfig(JHipsterProperties jHipsterProperties) {
+    private MapConfig initializeDomainMapConfig(JHipsterProperties jHipsterTestProperties) {
         MapConfig mapConfig = new MapConfig();
-        mapConfig.setTimeToLiveSeconds(jHipsterProperties.getCache().getHazelcast().getTimeToLiveSeconds());
+        mapConfig.setTimeToLiveSeconds(jHipsterTestProperties.getCache().getHazelcast().getTimeToLiveSeconds());
         return mapConfig;
     }
     <%_ } _%>
     <%_ if (clusteredHttpSession === 'hazelcast') { _%>
 
-    private MapConfig initializeClusteredSession(JHipsterProperties jHipsterProperties) {
+    private MapConfig initializeClusteredSession(JHipsterProperties jHipsterTestProperties) {
         MapConfig mapConfig = new MapConfig();
-        mapConfig.setBackupCount(jHipsterProperties.getCache().getHazelcast().getBackupCount());
-        mapConfig.setTimeToLiveSeconds(jHipsterProperties.getCache().getHazelcast().getTimeToLiveSeconds());
+        mapConfig.setBackupCount(jHipsterTestProperties.getCache().getHazelcast().getBackupCount());
+        mapConfig.setTimeToLiveSeconds(jHipsterTestProperties.getCache().getHazelcast().getTimeToLiveSeconds());
         return mapConfig;
     }
 
@@ -367,29 +367,29 @@ public class CacheConfiguration {
      *
      */
     @Bean
-    public InfinispanGlobalConfigurer globalConfiguration(JHipsterProperties jHipsterProperties) {
+    public InfinispanGlobalConfigurer globalConfiguration(JHipsterProperties jHipsterTestProperties) {
         log.info("Defining Infinispan Global Configuration");
         <%_ if (serviceDiscoveryType === 'eureka') { _%>
             if(this.registration == null) { // if registry is not defined, use native discovery
                 log.warn("No discovery service is set up, Infinispan will use default discovery for cluster formation");
                 return () -> GlobalConfigurationBuilder
                     .defaultClusteredBuilder().transport().defaultTransport()
-                    .addProperty("configurationFile", jHipsterProperties.getCache().getInfinispan().getConfigFile())
+                    .addProperty("configurationFile", jHipsterTestProperties.getCache().getInfinispan().getConfigFile())
                     .clusterName("infinispan-<%=baseName%>-cluster").globalJmxStatistics()
-                    .enabled(jHipsterProperties.getCache().getInfinispan().isStatsEnabled())
+                    .enabled(jHipsterTestProperties.getCache().getInfinispan().isStatsEnabled())
                     .allowDuplicateDomains(true).build();
             }
             return () -> GlobalConfigurationBuilder
                     .defaultClusteredBuilder().transport().transport(new JGroupsTransport(getTransportChannel()))
                     .clusterName("infinispan-<%=baseName%>-cluster").globalJmxStatistics()
-                    .enabled(jHipsterProperties.getCache().getInfinispan().isStatsEnabled())
+                    .enabled(jHipsterTestProperties.getCache().getInfinispan().isStatsEnabled())
                     .allowDuplicateDomains(true).build();
         <%_ }else { _%>
             return () -> GlobalConfigurationBuilder
                     .defaultClusteredBuilder().transport().defaultTransport()
-                    .addProperty("configurationFile", jHipsterProperties.getCache().getInfinispan().getConfigFile())
+                    .addProperty("configurationFile", jHipsterTestProperties.getCache().getInfinispan().getConfigFile())
                     .clusterName("infinispan-<%=baseName%>-cluster").globalJmxStatistics()
-                    .enabled(jHipsterProperties.getCache().getInfinispan().isStatsEnabled())
+                    .enabled(jHipsterTestProperties.getCache().getInfinispan().isStatsEnabled())
                     .allowDuplicateDomains(true).build();
         <%_ } _%>
     }
@@ -429,9 +429,9 @@ public class CacheConfiguration {
      *
      */
     @Bean
-    public InfinispanCacheConfigurer cacheConfigurer(JHipsterProperties jHipsterProperties) {
+    public InfinispanCacheConfigurer cacheConfigurer(JHipsterProperties jHipsterTestProperties) {
         log.info("Defining {} configuration", "app-data for local, replicated and distributed modes");
-        final JHipsterProperties.Cache.Infinispan cacheInfo = jHipsterProperties.getCache().getInfinispan();
+        final JHipsterProperties.Cache.Infinispan cacheInfo = jHipsterTestProperties.getCache().getInfinispan();
 
         return manager -> {
             // initialize application cache
@@ -483,15 +483,15 @@ public class CacheConfiguration {
      *
      */
     @Bean
-    public JCacheManager getJCacheManager(EmbeddedCacheManager cacheManager, JHipsterProperties jHipsterProperties){
+    public JCacheManager getJCacheManager(EmbeddedCacheManager cacheManager, JHipsterProperties jHipsterTestProperties){
         return new InfinispanJCacheManager(Caching.getCachingProvider().getDefaultURI(), cacheManager,
-            Caching.getCachingProvider(), jHipsterProperties);
+            Caching.getCachingProvider(), jHipsterTestProperties);
     }
 
     class InfinispanJCacheManager extends JCacheManager {
 
         public InfinispanJCacheManager(URI uri, EmbeddedCacheManager cacheManager, CachingProvider provider,
-                                       JHipsterProperties jHipsterProperties) {
+                                       JHipsterProperties jHipsterTestProperties) {
             super(uri, cacheManager, provider);
             // register individual caches to make the stats info available.
             <%_ if (!skipUserManagement) { _%>
@@ -519,7 +519,7 @@ public class CacheConfiguration {
                 <%_ } _%>
             <%_ } _%>
             // jhipster-needle-infinispan-add-entry
-            if (jHipsterProperties.getCache().getInfinispan().isStatsEnabled()) {
+            if (jHipsterTestProperties.getCache().getInfinispan().isStatsEnabled()) {
                 for (String cacheName : cacheManager.getCacheNames()) {
                     enableStatistics(cacheName, true);
                 }

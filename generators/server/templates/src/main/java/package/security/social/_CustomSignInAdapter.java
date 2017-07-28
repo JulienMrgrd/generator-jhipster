@@ -48,17 +48,17 @@ public class CustomSignInAdapter implements SignInAdapter {
 
     private final UserDetailsService userDetailsService;
 
-    private final JHipsterProperties jHipsterProperties;
+    private final JHipsterProperties jHipsterTestProperties;
     <%_ if (authenticationType === 'jwt') { _%>
 
     private final TokenProvider tokenProvider;
 
     <%_ } _%>
 
-    public CustomSignInAdapter(UserDetailsService userDetailsService, JHipsterProperties jHipsterProperties<% if (authenticationType === 'jwt') { %>,
+    public CustomSignInAdapter(UserDetailsService userDetailsService, JHipsterProperties jHipsterTestProperties<% if (authenticationType === 'jwt') { %>,
             TokenProvider tokenProvider<% } %>) {
         this.userDetailsService = userDetailsService;
-        this.jHipsterProperties = jHipsterProperties;
+        this.jHipsterTestProperties = jHipsterTestProperties;
         <%_ if (authenticationType === 'jwt') { _%>
         this.tokenProvider = tokenProvider;
         <%_ } _%>
@@ -82,7 +82,7 @@ public class CustomSignInAdapter implements SignInAdapter {
             log.error("Social authentication error");
             log.trace("Authentication exception trace: {}", ae);
         }
-        return jHipsterProperties.getSocial().getRedirectAfterSignIn();
+        return jHipsterTestProperties.getSocial().getRedirectAfterSignIn();
     }
 
     private Cookie getSocialAuthenticationCookie(String token) {
@@ -100,7 +100,7 @@ public class CustomSignInAdapter implements SignInAdapter {
             null,
             user.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(newAuth);
-        return jHipsterProperties.getSocial().getRedirectAfterSignIn();
+        return jHipsterTestProperties.getSocial().getRedirectAfterSignIn();
     }
     <%_ } _%>
 }

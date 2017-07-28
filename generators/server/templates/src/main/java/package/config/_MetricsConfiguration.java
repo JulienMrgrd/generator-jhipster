@@ -71,14 +71,14 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
 
     private HealthCheckRegistry healthCheckRegistry = new HealthCheckRegistry();
 
-    private final JHipsterProperties jHipsterProperties;
+    private final JHipsterProperties jHipsterTestProperties;
 <%_ if (databaseType === 'sql') { _%>
 
     private HikariDataSource hikariDataSource;
 <%_ } _%>
 
-    public MetricsConfiguration(JHipsterProperties jHipsterProperties) {
-        this.jHipsterProperties = jHipsterProperties;
+    public MetricsConfiguration(JHipsterProperties jHipsterTestProperties) {
+        this.jHipsterTestProperties = jHipsterTestProperties;
     }
 <%_ if (databaseType === 'sql') { _%>
 
@@ -117,19 +117,19 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
             hikariDataSource.setMetricRegistry(metricRegistry);
         }
         <%_ } _%>
-        if (jHipsterProperties.getMetrics().getJmx().isEnabled()) {
+        if (jHipsterTestProperties.getMetrics().getJmx().isEnabled()) {
             log.debug("Initializing Metrics JMX reporting");
             JmxReporter jmxReporter = JmxReporter.forRegistry(metricRegistry).build();
             jmxReporter.start();
         }
-        if (jHipsterProperties.getMetrics().getLogs().isEnabled()) {
+        if (jHipsterTestProperties.getMetrics().getLogs().isEnabled()) {
             log.info("Initializing Metrics Log reporting");
             final Slf4jReporter reporter = Slf4jReporter.forRegistry(metricRegistry)
                 .outputTo(LoggerFactory.getLogger("metrics"))
                 .convertRatesTo(TimeUnit.SECONDS)
                 .convertDurationsTo(TimeUnit.MILLISECONDS)
                 .build();
-            reporter.start(jHipsterProperties.getMetrics().getLogs().getReportFrequency(), TimeUnit.SECONDS);
+            reporter.start(jHipsterTestProperties.getMetrics().getLogs().getReportFrequency(), TimeUnit.SECONDS);
         }
     }
     <%_ if (applicationType === 'microservice' || applicationType === 'gateway') { _%>

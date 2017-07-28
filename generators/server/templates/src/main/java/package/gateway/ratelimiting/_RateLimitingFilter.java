@@ -55,14 +55,14 @@ public class RateLimitingFilter extends ZuulFilter {
 
     public final static String GATEWAY_RATE_LIMITING_CACHE_NAME = "gateway-rate-limiting";
 
-    private final JHipsterProperties jHipsterProperties;
+    private final JHipsterProperties jHipsterTestProperties;
 
     private javax.cache.Cache<String, GridBucketState> cache;
 
     private ProxyManager<String> buckets;
 
-    public RateLimitingFilter(JHipsterProperties jHipsterProperties) {
-        this.jHipsterProperties = jHipsterProperties;
+    public RateLimitingFilter(JHipsterProperties jHipsterTestProperties) {
+        this.jHipsterTestProperties = jHipsterTestProperties;
 
         CachingProvider cachingProvider = Caching.getCachingProvider();
         CacheManager cacheManager = cachingProvider.getCacheManager();
@@ -109,7 +109,7 @@ public class RateLimitingFilter extends ZuulFilter {
     private Supplier<BucketConfiguration> getConfigSupplier() {
         return () -> {
             JHipsterProperties.Gateway.RateLimiting rateLimitingProperties =
-                jHipsterProperties.getGateway().getRateLimiting();
+                jHipsterTestProperties.getGateway().getRateLimiting();
 
             return Bucket4j.configurationBuilder()
                 .addLimit(Bandwidth.simple(rateLimitingProperties.getLimit(),

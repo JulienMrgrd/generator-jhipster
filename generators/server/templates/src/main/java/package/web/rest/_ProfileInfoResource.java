@@ -38,11 +38,11 @@ public class ProfileInfoResource {
 
     private final Environment env;
 
-    private final JHipsterProperties jHipsterProperties;
+    private final JHipsterProperties jHipsterTestProperties;
 
-    public ProfileInfoResource(Environment env, JHipsterProperties jHipsterProperties) {
+    public ProfileInfoResource(Environment env, JHipsterProperties jHipsterTestProperties) {
         this.env = env;
-        this.jHipsterProperties = jHipsterProperties;
+        this.jHipsterTestProperties = jHipsterTestProperties;
     }
 
     @GetMapping("/profile-info")
@@ -52,7 +52,7 @@ public class ProfileInfoResource {
     }
 
     private String getRibbonEnv(String[] activeProfiles) {
-        String[] displayOnActiveProfiles = jHipsterProperties.getRibbon().getDisplayOnActiveProfiles();
+        String[] displayOnActiveProfiles = jHipsterTestProperties.getRibbon().getDisplayOnActiveProfiles();
         if (displayOnActiveProfiles == null) {
             return null;
         }

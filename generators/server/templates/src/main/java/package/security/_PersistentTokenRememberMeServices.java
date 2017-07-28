@@ -103,11 +103,11 @@ public class PersistentTokenRememberMeServices extends
 
     private final UserRepository userRepository;
 
-    public PersistentTokenRememberMeServices(JHipsterProperties jHipsterProperties,
+    public PersistentTokenRememberMeServices(JHipsterProperties jHipsterTestProperties,
             org.springframework.security.core.userdetails.UserDetailsService userDetailsService,
             PersistentTokenRepository persistentTokenRepository, UserRepository userRepository) {
 
-        super(jHipsterProperties.getSecurity().getRememberMe().getKey(), userDetailsService);
+        super(jHipsterTestProperties.getSecurity().getRememberMe().getKey(), userDetailsService);
         this.persistentTokenRepository = persistentTokenRepository;
         this.userRepository = userRepository;
     }

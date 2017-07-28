@@ -37,7 +37,7 @@ public class JHipsterProperties {
 
     // TODO: delete ?
     @Bean
-    public JHipsterProperties jHipsterProperties(){
+    public JHipsterProperties jHipsterTestProperties(){
         return new JHipsterProperties();
     }
 

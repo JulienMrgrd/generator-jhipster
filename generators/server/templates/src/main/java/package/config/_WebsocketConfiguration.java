@@ -50,10 +50,10 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
 
     public static final String IP_ADDRESS = "IP_ADDRESS";
 
-    private final JHipsterProperties jHipsterProperties;
+    private final JHipsterProperties jHipsterTestProperties;
 
-    public WebsocketConfiguration(JHipsterProperties jHipsterProperties) {
-        this.jHipsterProperties = jHipsterProperties;
+    public WebsocketConfiguration(JHipsterProperties jHipsterTestProperties) {
+        this.jHipsterTestProperties = jHipsterTestProperties;
     }
 
     @Override
@@ -63,7 +63,7 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        String[] allowedOrigins = Optional.ofNullable(jHipsterProperties.getCors().getAllowedOrigins()).map(origins -> origins.toArray(new String[0])).orElse(new String[0]);
+        String[] allowedOrigins = Optional.ofNullable(jHipsterTestProperties.getCors().getAllowedOrigins()).map(origins -> origins.toArray(new String[0])).orElse(new String[0]);
         registry.addEndpoint("/websocket/tracker")
             .setHandshakeHandler(defaultHandshakeHandler())
             .setAllowedOrigins(allowedOrigins)

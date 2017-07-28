@@ -41,13 +41,13 @@ public class TokenProviderTest {
 
     private final String secretKey = "e5c9ee274ae87bc031adda32e27fa98b9290da83";
     private final long ONE_MINUTE = 60000;
-    private JHipsterProperties jHipsterProperties;
+    private JHipsterProperties jHipsterTestProperties;
     private TokenProvider tokenProvider;
 
     @Before
     public void setup() {
-        jHipsterProperties = Mockito.mock(JHipsterProperties.class);
-        tokenProvider = new TokenProvider(jHipsterProperties);
+        jHipsterTestProperties = Mockito.mock(JHipsterProperties.class);
+        tokenProvider = new TokenProvider(jHipsterTestProperties);
         ReflectionTestUtils.setField(tokenProvider, "secretKey", secretKey);
         ReflectionTestUtils.setField(tokenProvider, "tokenValidityInMilliseconds", ONE_MINUTE);
     }
