@@ -50,9 +50,9 @@ public class WebsocketConfiguration extends AbstractWebSocketMessageBrokerConfig
 
     public static final String IP_ADDRESS = "IP_ADDRESS";
 
-    private final JHipsterProperties jHipsterTestProperties;
+    private final JHipsterTestProperties jHipsterTestProperties;
 
-    public WebsocketConfiguration(JHipsterProperties jHipsterTestProperties) {
+    public WebsocketConfiguration(JHipsterTestProperties jHipsterTestProperties) {
         this.jHipsterTestProperties = jHipsterTestProperties;
     }
 

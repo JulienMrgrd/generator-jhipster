@@ -22,7 +22,7 @@ package <%=packageName%>.security.social;
 import <%=packageName%>.security.jwt.TokenProvider;
 <%_ } _%>
 
-import <%=packageName%>.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterTestProperties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,14 +48,14 @@ public class CustomSignInAdapter implements SignInAdapter {
 
     private final UserDetailsService userDetailsService;
 
-    private final JHipsterProperties jHipsterTestProperties;
+    private final JHipsterTestProperties jHipsterTestProperties;
     <%_ if (authenticationType === 'jwt') { _%>
 
     private final TokenProvider tokenProvider;
 
     <%_ } _%>
 
-    public CustomSignInAdapter(UserDetailsService userDetailsService, JHipsterProperties jHipsterTestProperties<% if (authenticationType === 'jwt') { %>,
+    public CustomSignInAdapter(UserDetailsService userDetailsService, JHipsterTestProperties jHipsterTestProperties<% if (authenticationType === 'jwt') { %>,
             TokenProvider tokenProvider<% } %>) {
         this.userDetailsService = userDetailsService;
         this.jHipsterTestProperties = jHipsterTestProperties;

@@ -123,8 +123,8 @@ public class CacheConfiguration {
 
     private final javax.cache.configuration.Configuration<Object, Object> jcacheConfiguration;
 
-    public CacheConfiguration(JHipsterProperties jHipsterTestProperties) {
-        JHipsterProperties.Cache.Ehcache ehcache =
+    public CacheConfiguration(JHipsterTestProperties jHipsterTestProperties) {
+        JHipsterTestProperties.Cache.Ehcache ehcache =
             jHipsterTestProperties.getCache().getEhcache();
 
         jcacheConfiguration = Eh107Configuration.fromEhcacheCacheConfiguration(
@@ -196,7 +196,7 @@ public class CacheConfiguration {
     }
 
     @Bean
-    public HazelcastInstance hazelcastInstance(JHipsterProperties jHipsterTestProperties) {
+    public HazelcastInstance hazelcastInstance(JHipsterTestProperties jHipsterTestProperties) {
         log.debug("Configuring Hazelcast");
         HazelcastInstance hazelCastInstance = Hazelcast.getHazelcastInstanceByName("<%=baseName%>");
         if (hazelCastInstance != null) {
@@ -290,7 +290,7 @@ public class CacheConfiguration {
     }
     <%_ if (hibernateCache === 'hazelcast') { _%>
 
-    private MapConfig initializeDomainMapConfig(JHipsterProperties jHipsterTestProperties) {
+    private MapConfig initializeDomainMapConfig(JHipsterTestProperties jHipsterTestProperties) {
         MapConfig mapConfig = new MapConfig();
         mapConfig.setTimeToLiveSeconds(jHipsterTestProperties.getCache().getHazelcast().getTimeToLiveSeconds());
         return mapConfig;
@@ -298,7 +298,7 @@ public class CacheConfiguration {
     <%_ } _%>
     <%_ if (clusteredHttpSession === 'hazelcast') { _%>
 
-    private MapConfig initializeClusteredSession(JHipsterProperties jHipsterTestProperties) {
+    private MapConfig initializeClusteredSession(JHipsterTestProperties jHipsterTestProperties) {
         MapConfig mapConfig = new MapConfig();
         mapConfig.setBackupCount(jHipsterTestProperties.getCache().getHazelcast().getBackupCount());
         mapConfig.setTimeToLiveSeconds(jHipsterTestProperties.getCache().getHazelcast().getTimeToLiveSeconds());
@@ -367,7 +367,7 @@ public class CacheConfiguration {
      *
      */
     @Bean
-    public InfinispanGlobalConfigurer globalConfiguration(JHipsterProperties jHipsterTestProperties) {
+    public InfinispanGlobalConfigurer globalConfiguration(JHipsterTestProperties jHipsterTestProperties) {
         log.info("Defining Infinispan Global Configuration");
         <%_ if (serviceDiscoveryType === 'eureka') { _%>
             if(this.registration == null) { // if registry is not defined, use native discovery
@@ -429,9 +429,9 @@ public class CacheConfiguration {
      *
      */
     @Bean
-    public InfinispanCacheConfigurer cacheConfigurer(JHipsterProperties jHipsterTestProperties) {
+    public InfinispanCacheConfigurer cacheConfigurer(JHipsterTestProperties jHipsterTestProperties) {
         log.info("Defining {} configuration", "app-data for local, replicated and distributed modes");
-        final JHipsterProperties.Cache.Infinispan cacheInfo = jHipsterTestProperties.getCache().getInfinispan();
+        final JHipsterTestProperties.Cache.Infinispan cacheInfo = jHipsterTestProperties.getCache().getInfinispan();
 
         return manager -> {
             // initialize application cache
@@ -483,7 +483,7 @@ public class CacheConfiguration {
      *
      */
     @Bean
-    public JCacheManager getJCacheManager(EmbeddedCacheManager cacheManager, JHipsterProperties jHipsterTestProperties){
+    public JCacheManager getJCacheManager(EmbeddedCacheManager cacheManager, JHipsterTestProperties jHipsterTestProperties){
         return new InfinispanJCacheManager(Caching.getCachingProvider().getDefaultURI(), cacheManager,
             Caching.getCachingProvider(), jHipsterTestProperties);
     }
@@ -491,7 +491,7 @@ public class CacheConfiguration {
     class InfinispanJCacheManager extends JCacheManager {
 
         public InfinispanJCacheManager(URI uri, EmbeddedCacheManager cacheManager, CachingProvider provider,
-                                       JHipsterProperties jHipsterTestProperties) {
+                                       JHipsterTestProperties jHipsterTestProperties) {
             super(uri, cacheManager, provider);
             // register individual caches to make the stats info available.
             <%_ if (!skipUserManagement) { _%>

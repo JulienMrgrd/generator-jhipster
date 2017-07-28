@@ -18,7 +18,7 @@
 -%>
 package <%=packageName%>.gateway.accesscontrol;
 
-import <%=packageName%>.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterTestProperties;
 
 import java.util.List;
 import java.util.Map;
@@ -41,9 +41,9 @@ public class AccessControlFilter extends ZuulFilter {
 
     private final RouteLocator routeLocator;
 
-    private final JHipsterProperties jHipsterTestProperties;
+    private final JHipsterTestProperties jHipsterTestProperties;
 
-    public AccessControlFilter(RouteLocator routeLocator, JHipsterProperties jHipsterTestProperties) {
+    public AccessControlFilter(RouteLocator routeLocator, JHipsterTestProperties jHipsterTestProperties) {
         this.routeLocator = routeLocator;
         this.jHipsterTestProperties = jHipsterTestProperties;
     }

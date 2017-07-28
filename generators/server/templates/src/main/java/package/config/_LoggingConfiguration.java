@@ -49,10 +49,10 @@ public class LoggingConfiguration {
     private final String instanceId;
     <%_ } _%>
 
-    private final JHipsterProperties jHipsterTestProperties;
+    private final JHipsterTestProperties jHipsterTestProperties;
 
     public LoggingConfiguration(@Value("${spring.application.name}") String appName, @Value("${server.port}") String serverPort,
-        <% if (serviceDiscoveryType === "eureka") { %>@Value("${eureka.instance.instanceId}") String instanceId,<% } %><% if (serviceDiscoveryType === "consul") { %>@Value("${spring.cloud.consul.discovery.instanceId}") String instanceId,<% } %> JHipsterProperties jHipsterTestProperties) {
+        <% if (serviceDiscoveryType === "eureka") { %>@Value("${eureka.instance.instanceId}") String instanceId,<% } %><% if (serviceDiscoveryType === "consul") { %>@Value("${spring.cloud.consul.discovery.instanceId}") String instanceId,<% } %> JHipsterTestProperties jHipsterTestProperties) {
         this.appName = appName;
         this.serverPort = serverPort;
         <%_ if (serviceDiscoveryType !== false) { _%>

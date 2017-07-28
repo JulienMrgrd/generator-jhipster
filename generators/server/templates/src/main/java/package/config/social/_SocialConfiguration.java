@@ -142,7 +142,7 @@ public class SocialConfiguration implements SocialConfigurer {
     }
 
     @Bean
-    public SignInAdapter signInAdapter(UserDetailsService userDetailsService, JHipsterProperties jHipsterTestProperties<% if (authenticationType === 'jwt') { %>,
+    public SignInAdapter signInAdapter(UserDetailsService userDetailsService, JHipsterTestProperties jHipsterTestProperties<% if (authenticationType === 'jwt') { %>,
             TokenProvider tokenProvider<% } %>) {
         return new CustomSignInAdapter(userDetailsService, jHipsterTestProperties<% if (authenticationType === 'jwt') { %>,
             tokenProvider<% } %>);

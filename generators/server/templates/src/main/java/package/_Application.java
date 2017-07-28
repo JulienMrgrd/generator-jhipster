@@ -22,7 +22,7 @@ package <%=packageName%>;
 import <%=packageName%>.client.OAuth2InterceptedFeignConfiguration;
 <%_ } _%>
 import <%=packageName%>.config.ApplicationProperties;
-import <%=packageName%>.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterTestProperties;
 import <%=packageName%>.config.DefaultProfileUtil;
 
 import io.github.jhipster.config.JHipsterConstants;
@@ -64,7 +64,7 @@ import java.util.Collection;
 @ComponentScan
 <%_ } _%>
 @EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class<% if (clusteredHttpSession === 'hazelcast') { %>, HazelcastAutoConfiguration.class<% } %><% if (applicationType === 'gateway') { %>, MetricsDropwizardAutoConfiguration.class<% } %>})
-@EnableConfigurationProperties({<% if (databaseType === 'sql') { %>LiquibaseProperties.class, <% } %>ApplicationProperties.class, JHipsterProperties.class})
+@EnableConfigurationProperties({<% if (databaseType === 'sql') { %>LiquibaseProperties.class, <% } %>ApplicationProperties.class, JHipsterTestProperties.class})
 <%_ if (serviceDiscoveryType) { _%>
 @EnableDiscoveryClient
 <%_ } _%>
@@ -138,7 +138,7 @@ public class <%= mainClass %> {
 
     // TODO: delete ?
     @Bean
-    public JHipsterProperties jHipsterTestProperties(){
-        return new JHipsterProperties();
+    public JHipsterTestProperties jHipsterTestProperties(){
+        return new JHipsterTestProperties();
     }
 }

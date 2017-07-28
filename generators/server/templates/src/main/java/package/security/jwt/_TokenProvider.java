@@ -18,7 +18,7 @@
 -%>
 package <%=packageName%>.security.jwt;
 
-import <%=packageName%>.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterTestProperties;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -48,9 +48,9 @@ public class TokenProvider {
 
     private long tokenValidityInMillisecondsForRememberMe;
 
-    private final JHipsterProperties jHipsterTestProperties;
+    private final JHipsterTestProperties jHipsterTestProperties;
 
-    public TokenProvider(JHipsterProperties jHipsterTestProperties) {
+    public TokenProvider(JHipsterTestProperties jHipsterTestProperties) {
         this.jHipsterTestProperties = jHipsterTestProperties;
     }
 

@@ -67,7 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     <%_ if (authenticationType === 'session') { _%>
 
-    private final JHipsterProperties jHipsterTestProperties;
+    private final JHipsterTestProperties jHipsterTestProperties;
 
     private final RememberMeServices rememberMeServices;
     <%_ } _%>
@@ -85,7 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     <%_ } _%>
 
     public SecurityConfiguration(AuthenticationManagerBuilder authenticationManagerBuilder, UserDetailsService userDetailsService<% if (authenticationType === 'session') { %>,
-        JHipsterProperties jHipsterTestProperties, RememberMeServices rememberMeServices<% } if (authenticationType === 'jwt') { %>,
+        JHipsterTestProperties jHipsterTestProperties, RememberMeServices rememberMeServices<% } if (authenticationType === 'jwt') { %>,
             TokenProvider tokenProvider<% } %><% if (clusteredHttpSession === 'hazelcast') { %>, SessionRegistry sessionRegistry<% } if (authenticationType !== 'oauth2') { %>,
         CorsFilter corsFilter<% } %>) {
 

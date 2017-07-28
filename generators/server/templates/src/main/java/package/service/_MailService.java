@@ -20,7 +20,7 @@ package <%=packageName%>.service;
 
 import <%=packageName%>.domain.User;
 
-import <%=packageName%>.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterTestProperties;
 
 import org.apache.commons.lang3.CharEncoding;
 import org.slf4j.Logger;
@@ -53,7 +53,7 @@ public class MailService {
 
     private static final String BASE_URL = "baseUrl";
 
-    private final JHipsterProperties jHipsterTestProperties;
+    private final JHipsterTestProperties jHipsterTestProperties;
 
     private final JavaMailSender javaMailSender;
 
@@ -61,7 +61,7 @@ public class MailService {
 
     private final SpringTemplateEngine templateEngine;
 
-    public MailService(JHipsterProperties jHipsterTestProperties, JavaMailSender javaMailSender,
+    public MailService(JHipsterTestProperties jHipsterTestProperties, JavaMailSender javaMailSender,
             MessageSource messageSource, SpringTemplateEngine templateEngine) {
 
         this.jHipsterTestProperties = jHipsterTestProperties;

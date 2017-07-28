@@ -18,7 +18,7 @@
 -%>
 package <%=packageName%>.web.filter;
 
-import <%=packageName%>.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterTestProperties;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
@@ -35,9 +35,9 @@ public class CachingHttpHeadersFilter implements Filter {
 
     private long CACHE_TIME_TO_LIVE = TimeUnit.DAYS.toMillis(1461L);
 
-    private JHipsterProperties jHipsterTestProperties;
+    private JHipsterTestProperties jHipsterTestProperties;
 
-    public CachingHttpHeadersFilter(JHipsterProperties jHipsterTestProperties) {
+    public CachingHttpHeadersFilter(JHipsterTestProperties jHipsterTestProperties) {
         this.jHipsterTestProperties = jHipsterTestProperties;
     }
 

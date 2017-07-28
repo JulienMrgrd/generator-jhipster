@@ -71,13 +71,13 @@ public class MetricsConfiguration extends MetricsConfigurerAdapter {
 
     private HealthCheckRegistry healthCheckRegistry = new HealthCheckRegistry();
 
-    private final JHipsterProperties jHipsterTestProperties;
+    private final JHipsterTestProperties jHipsterTestProperties;
 <%_ if (databaseType === 'sql') { _%>
 
     private HikariDataSource hikariDataSource;
 <%_ } _%>
 
-    public MetricsConfiguration(JHipsterProperties jHipsterTestProperties) {
+    public MetricsConfiguration(JHipsterTestProperties jHipsterTestProperties) {
         this.jHipsterTestProperties = jHipsterTestProperties;
     }
 <%_ if (databaseType === 'sql') { _%>

@@ -55,11 +55,11 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
 
         private final TokenStore tokenStore;
 
-        private final JHipsterProperties jHipsterTestProperties;
+        private final JHipsterTestProperties jHipsterTestProperties;
 
         private final CorsFilter corsFilter;
 
-        public ResourceServerConfiguration(TokenStore tokenStore, JHipsterProperties jHipsterTestProperties, CorsFilter corsFilter) {
+        public ResourceServerConfiguration(TokenStore tokenStore, JHipsterTestProperties jHipsterTestProperties, CorsFilter corsFilter) {
             this.tokenStore = tokenStore;
             this.jHipsterTestProperties = jHipsterTestProperties;
             this.corsFilter = corsFilter;
@@ -104,9 +104,9 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
         }
     }
 
-    private final JHipsterProperties jHipsterTestProperties;
+    private final JHipsterTestProperties jHipsterTestProperties;
 
-    public UaaConfiguration(JHipsterProperties jHipsterTestProperties) {
+    public UaaConfiguration(JHipsterTestProperties jHipsterTestProperties) {
         this.jHipsterTestProperties = jHipsterTestProperties;
     }
 

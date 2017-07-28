@@ -20,7 +20,7 @@ package <%=packageName%>.web.rest;
 
 import <%=packageName%>.config.DefaultProfileUtil;
 
-import <%=packageName%>.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterTestProperties;
 
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +38,9 @@ public class ProfileInfoResource {
 
     private final Environment env;
 
-    private final JHipsterProperties jHipsterTestProperties;
+    private final JHipsterTestProperties jHipsterTestProperties;
 
-    public ProfileInfoResource(Environment env, JHipsterProperties jHipsterTestProperties) {
+    public ProfileInfoResource(Environment env, JHipsterTestProperties jHipsterTestProperties) {
         this.env = env;
         this.jHipsterTestProperties = jHipsterTestProperties;
     }

@@ -59,13 +59,13 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
 
     private final Environment env;
 
-    private final JHipsterProperties jHipsterTestProperties;<% if (clusteredHttpSession === 'hazelcast' || hibernateCache === 'hazelcast') { %>
+    private final JHipsterTestProperties jHipsterTestProperties;<% if (clusteredHttpSession === 'hazelcast' || hibernateCache === 'hazelcast') { %>
 
     private final HazelcastInstance hazelcastInstance;<% } %>
 
     private MetricRegistry metricRegistry;
 
-    public WebConfigurer(Environment env, JHipsterProperties jHipsterTestProperties<% if (clusteredHttpSession === 'hazelcast' || hibernateCache === 'hazelcast') { %>, HazelcastInstance hazelcastInstance<% } %>) {
+    public WebConfigurer(Environment env, JHipsterTestProperties jHipsterTestProperties<% if (clusteredHttpSession === 'hazelcast' || hibernateCache === 'hazelcast') { %>, HazelcastInstance hazelcastInstance<% } %>) {
 
         this.env = env;
         this.jHipsterTestProperties = jHipsterTestProperties;
@@ -153,10 +153,10 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
         /*
          * Enable HTTP/2 for Undertow - https://twitter.com/ankinson/status/829256167700492288
          * HTTP/2 requires HTTPS, so HTTP requests will fallback to HTTP/1.1.
-         * See the JHipsterProperties class and your application-*.yml configuration files
+         * See the JHipsterTestProperties class and your application-*.yml configuration files
          * for more information.
          */
-        if (jHipsterTestProperties.getHttp().getVersion().equals(JHipsterProperties.Http.Version.V_2_0) &&
+        if (jHipsterTestProperties.getHttp().getVersion().equals(JHipsterTestProperties.Http.Version.V_2_0) &&
             container instanceof UndertowServletWebServerFactory) {
 
             ((UndertowServletWebServerFactory) container)

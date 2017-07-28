@@ -18,7 +18,7 @@
 -%>
 package <%= packageName %>.web.rest;
 
-import <%=packageName%>.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterTestProperties;
 <%_ if (databaseType === 'cassandra') { _%>
 import <%= packageName %>.AbstractCassandraTest;
 <%_ } _%>
@@ -60,7 +60,7 @@ public class ProfileInfoResourceIntTest <% if (databaseType === 'cassandra') { %
     private Environment environment;
 
     @Mock
-    private JHipsterProperties jHipsterTestProperties;
+    private JHipsterTestProperties jHipsterTestProperties;
 
     private MockMvc restProfileMockMvc;
 
@@ -68,7 +68,7 @@ public class ProfileInfoResourceIntTest <% if (databaseType === 'cassandra') { %
     public void setup() {
         MockitoAnnotations.initMocks(this);
         String mockProfile[] = {"test"};
-        JHipsterProperties.Ribbon ribbon = new JHipsterProperties.Ribbon();
+        JHipsterTestProperties.Ribbon ribbon = new JHipsterTestProperties.Ribbon();
         ribbon.setDisplayOnActiveProfiles(mockProfile);
         when(jHipsterTestProperties.getRibbon()).thenReturn(ribbon);
 
@@ -91,7 +91,7 @@ public class ProfileInfoResourceIntTest <% if (databaseType === 'cassandra') { %
 
     @Test
     public void getProfileInfoWithoutRibbon() throws Exception {
-        JHipsterProperties.Ribbon ribbon = new JHipsterProperties.Ribbon();
+        JHipsterTestProperties.Ribbon ribbon = new JHipsterTestProperties.Ribbon();
         ribbon.setDisplayOnActiveProfiles(null);
         when(jHipsterTestProperties.getRibbon()).thenReturn(ribbon);
 
