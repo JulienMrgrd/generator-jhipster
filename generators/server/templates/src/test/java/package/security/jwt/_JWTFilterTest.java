@@ -19,7 +19,7 @@
 package <%=packageName%>.security.jwt;
 
 import <%=packageName%>.security.AuthoritiesConstants;
-import jhipster.reactive.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;

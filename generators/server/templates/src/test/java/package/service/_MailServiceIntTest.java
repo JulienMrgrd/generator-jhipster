@@ -21,7 +21,7 @@ package <%=packageName%>.service;
 import <%=packageName%>.AbstractCassandraTest;<% } %>
 import <%=packageName%>.<%= mainClass %>;
 import <%=packageName%>.domain.User;
-import jhipster.reactive.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

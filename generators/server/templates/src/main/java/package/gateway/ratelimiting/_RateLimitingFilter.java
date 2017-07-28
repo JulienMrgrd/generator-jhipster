@@ -40,7 +40,7 @@ import io.github.bucket4j.*;
 import io.github.bucket4j.grid.GridBucketState;
 import io.github.bucket4j.grid.ProxyManager;
 import io.github.bucket4j.grid.jcache.JCache;
-import jhipster.reactive.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterProperties;
 
 /**
  * Zuul filter for limiting the number of HTTP calls per client.

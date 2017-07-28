@@ -18,7 +18,7 @@
 -%>
 package <%= packageName %>.web.rest;
 
-import jhipster.reactive.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterProperties;
 <%_ if (databaseType === 'cassandra') { _%>
 import <%= packageName %>.AbstractCassandraTest;
 <%_ } _%>

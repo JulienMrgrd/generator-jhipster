@@ -19,7 +19,7 @@
 package <%=packageName%>.config;
 
 import io.github.jhipster.config.JHipsterConstants;
-import jhipster.reactive.config.JHipsterProperties;<% if (!skipClient) { %>
+import <%=packageName%>.config.JHipsterProperties;<% if (!skipClient) { %>
 import io.github.jhipster.web.filter.CachingHttpHeadersFilter;<% } %>
 import io.undertow.UndertowOptions;
 

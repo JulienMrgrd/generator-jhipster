@@ -29,7 +29,7 @@ import com.datastax.driver.core.exceptions.DriverException;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
-import jhipster.reactive.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterProperties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;<% if (databaseType === 'sql' || databaseType === 'mongodb') { %>

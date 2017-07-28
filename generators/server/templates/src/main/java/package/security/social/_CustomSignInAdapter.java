@@ -22,7 +22,7 @@ package <%=packageName%>.security.social;
 import <%=packageName%>.security.jwt.TokenProvider;
 <%_ } _%>
 
-import jhipster.reactive.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterProperties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

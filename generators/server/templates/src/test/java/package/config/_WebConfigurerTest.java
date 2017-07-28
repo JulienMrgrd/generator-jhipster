@@ -36,7 +36,7 @@ import com.hazelcast.transaction.*;
 import com.hazelcast.web.spring.SpringAwareWebFilter;
 <%_ } _%>
 import io.github.jhipster.config.JHipsterConstants;
-import jhipster.reactive.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterProperties;
 <%_ if (!skipClient) { _%>
 import io.github.jhipster.web.filter.CachingHttpHeadersFilter;
 <%_ } _%>

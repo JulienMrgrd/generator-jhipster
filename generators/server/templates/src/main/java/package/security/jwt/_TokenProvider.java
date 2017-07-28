@@ -18,7 +18,7 @@
 -%>
 package <%=packageName%>.security.jwt;
 
-import jhipster.reactive.config.JHipsterProperties;
+import <%=packageName%>.config.JHipsterProperties;
 
 import java.util.*;
 import java.util.stream.Collectors;
