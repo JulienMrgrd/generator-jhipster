@@ -32,13 +32,8 @@ import org.springframework.web.cors.CorsConfiguration;
  * Properties are configured in the application.yml file.
  * </p>
  */
-@ConfigurationProperties(prefix = "jhipster", ignoreUnknownFields = true, ignoreInvalidFields = true)
-public class AJHipsterProperties {
-
-    @Bean(name = "jHipsterProperties")
-    public AJHipsterProperties jHipsterProperties() {
-        return new AJHipsterProperties();
-    }
+@ConfigurationProperties(prefix = "jhipster", ignoreUnknownFields = true)
+public class JHipsterProperties {
 
     private final Async async = new Async();
 

@@ -22,6 +22,7 @@ package <%=packageName%>;
 import <%=packageName%>.client.OAuth2InterceptedFeignConfiguration;
 <%_ } _%>
 import <%=packageName%>.config.ApplicationProperties;
+import <%=packageName%>.config.JHipsterProperties;
 import <%=packageName%>.config.DefaultProfileUtil;
 
 import io.github.jhipster.config.JHipsterConstants;
@@ -62,7 +63,7 @@ import java.util.Collection;
 @ComponentScan
 <%_ } _%>
 @EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class<% if (clusteredHttpSession === 'hazelcast') { %>, HazelcastAutoConfiguration.class<% } %><% if (applicationType === 'gateway') { %>, MetricsDropwizardAutoConfiguration.class<% } %>})
-@EnableConfigurationProperties({<% if (databaseType === 'sql') { %>LiquibaseProperties.class, <% } %>ApplicationProperties.class})
+@EnableConfigurationProperties({<% if (databaseType === 'sql') { %>LiquibaseProperties.class, <% } %>ApplicationProperties.class, JHipsterProperties.class})
 <%_ if (serviceDiscoveryType) { _%>
 @EnableDiscoveryClient
 <%_ } _%>
