@@ -33,11 +33,11 @@ import org.springframework.web.cors.CorsConfiguration;
  * </p>
  */
 @ConfigurationProperties(prefix = "jhipster", ignoreUnknownFields = true, ignoreInvalidFields = true)
-public class JHipsterProperties {
+public class AJHipsterProperties {
 
     @Bean(name = "jHipsterProperties")
-    public JHipsterProperties jHipsterProperties() {
-        return new JHipsterProperties();
+    public AJHipsterProperties jHipsterProperties() {
+        return new AJHipsterProperties();
     }
 
     private final Async async = new Async();
