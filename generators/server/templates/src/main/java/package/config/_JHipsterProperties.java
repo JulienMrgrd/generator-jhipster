@@ -35,6 +35,7 @@ import org.springframework.web.cors.CorsConfiguration;
 @ConfigurationProperties(prefix = "thomas", ignoreUnknownFields = false)
 public class JHipsterProperties {
 
+    // TODO: delete ?
     @Bean
     public JHipsterProperties jHipsterProperties(){
         return new JHipsterProperties();
