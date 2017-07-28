@@ -74,7 +74,7 @@ dependencyManagement {
 defaultTasks 'bootRun'
 
 bootRepackage {
-   mainClass = '<%= packageName %>.<%= mainClass %>'
+    enabled = false
 }
 
 war {
