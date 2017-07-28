@@ -88,7 +88,6 @@ function cleanupOldServerFiles(generator, javaDir, testDir) {
         generator.removeFile(`${javaDir}security/CustomPersistentRememberMeServices.java`);
         generator.removeFile(`${javaDir}security/Http401UnauthorizedEntryPoint.java`);
         generator.removeFile(`${javaDir}security/UserDetailsService.java`);
-        generator.removeFile(`${javaDir}web/filter/CachingHttpHeadersFilter.java`);
         generator.removeFile(`${javaDir}web/filter/package-info.java`);
     }
     if (generator.isJhipsterVersionLessThan('4.3.0')) {
