@@ -38,7 +38,7 @@ import com.hazelcast.web.spring.SpringAwareWebFilter;
 import io.github.jhipster.config.JHipsterConstants;
 import <%=packageName%>.config.JHipsterProperties;
 <%_ if (!skipClient) { _%>
-import io.github.jhipster.web.filter.CachingHttpHeadersFilter;
+import <%= packageName %>.web.filter.CachingHttpHeadersFilter;
 <%_ } _%>
 import io.undertow.Undertow;
 import io.undertow.Undertow.Builder;
