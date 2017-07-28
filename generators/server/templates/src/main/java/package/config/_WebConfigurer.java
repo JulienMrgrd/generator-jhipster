@@ -18,8 +18,7 @@
 -%>
 package <%=packageName%>.config;
 
-import io.github.jhipster.config.JHipsterConstants;
-import <%=packageName%>.config.JHipsterProperties;<% if (!skipClient) { %>
+import io.github.jhipster.config.JHipsterConstants;<% if (!skipClient) { %>
 import io.github.jhipster.web.filter.CachingHttpHeadersFilter;<% } %>
 import io.undertow.UndertowOptions;
 
