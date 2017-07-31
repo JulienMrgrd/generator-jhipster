@@ -18,6 +18,7 @@
 -%>
 package <%=packageName%>.config.social;
 
+import <%=packageName%>.config.JHipsterProperties;
 import <%=packageName%>.repository.SocialUserConnectionRepository;
 import <%=packageName%>.repository.CustomSocialUsersConnectionRepository;
 <%_ if (authenticationType === 'jwt') { _%>
