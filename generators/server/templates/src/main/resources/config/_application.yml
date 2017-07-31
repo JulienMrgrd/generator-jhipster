@@ -181,12 +181,11 @@ info:
 #
 # Full reference is available at: https://jhipster.github.io/common-application-properties/
 # ===================================================================
+jhipster.async.core-pool-size: 2
+jhipster.async.max-pool-size: 50
+jhipster.async.queue-capacity: 10000
 
 jhipster:
-    async:
-        core-pool-size: 2
-        max-pool-size: 50
-        queue-capacity: 10000
     # By default CORS is disabled. Uncomment to enable.
     #cors:
         #allowed-origins: "*"
