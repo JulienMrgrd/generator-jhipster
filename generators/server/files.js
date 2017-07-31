@@ -329,7 +329,7 @@ function writeFiles() {
 
             // TODO: delete
             this.template(`${SERVER_MAIN_SRC_DIR}package/web/filter/_CachingHttpHeadersFilter.java`, `${javaDir}web/filter/CachingHttpHeadersFilter.java`);
-            this.template(`${SERVER_MAIN_SRC_DIR}package/config/_JHipsterTestProperties.java`, `${javaDir}config/JHipsterTestProperties.java`);
+            this.template(`${SERVER_MAIN_SRC_DIR}package/config/_JHipsterProperties.java`, `${javaDir}config/JHipsterProperties.java`);
             if (this.authenticationType === 'oauth2') {
                 this.template(`${SERVER_MAIN_SRC_DIR}package/config/_UaaAutoConfiguration2.java`, `${javaDir}config/UaaAutoConfiguration2.java`);
             }

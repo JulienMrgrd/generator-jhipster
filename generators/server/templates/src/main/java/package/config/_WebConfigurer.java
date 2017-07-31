@@ -59,16 +59,16 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
 
     private final Environment env;
 
-    private final JHipsterTestProperties jHipsterTestProperties;<% if (clusteredHttpSession === 'hazelcast' || hibernateCache === 'hazelcast') { %>
+    private final JHipsterProperties jHipsterProperties;<% if (clusteredHttpSession === 'hazelcast' || hibernateCache === 'hazelcast') { %>
 
     private final HazelcastInstance hazelcastInstance;<% } %>
 
     private MetricRegistry metricRegistry;
 
-    public WebConfigurer(Environment env, JHipsterTestProperties jHipsterTestProperties<% if (clusteredHttpSession === 'hazelcast' || hibernateCache === 'hazelcast') { %>, HazelcastInstance hazelcastInstance<% } %>) {
+    public WebConfigurer(Environment env, JHipsterProperties jHipsterProperties<% if (clusteredHttpSession === 'hazelcast' || hibernateCache === 'hazelcast') { %>, HazelcastInstance hazelcastInstance<% } %>) {
 
         this.env = env;
-        this.jHipsterTestProperties = jHipsterTestProperties;
+        this.jHipsterProperties = jHipsterProperties;
         <%_ if (clusteredHttpSession === 'hazelcast' || hibernateCache === 'hazelcast') { _%>
         this.hazelcastInstance = hazelcastInstance;
         <%_ } _%>
@@ -153,10 +153,10 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
         /*
          * Enable HTTP/2 for Undertow - https://twitter.com/ankinson/status/829256167700492288
          * HTTP/2 requires HTTPS, so HTTP requests will fallback to HTTP/1.1.
-         * See the JHipsterTestProperties class and your application-*.yml configuration files
+         * See the JHipsterProperties class and your application-*.yml configuration files
          * for more information.
          */
-        if (jHipsterTestProperties.getHttp().getVersion().equals(JHipsterTestProperties.Http.Version.V_2_0) &&
+        if (jHipsterProperties.getHttp().getVersion().equals(JHipsterProperties.Http.Version.V_2_0) &&
             container instanceof UndertowServletWebServerFactory) {
 
             ((UndertowServletWebServerFactory) container)
@@ -205,7 +205,7 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
         log.debug("Registering Caching HTTP Headers Filter");
         FilterRegistration.Dynamic cachingHttpHeadersFilter =
             servletContext.addFilter("cachingHttpHeadersFilter",
-                new CachingHttpHeadersFilter(jHipsterTestProperties));
+                new CachingHttpHeadersFilter(jHipsterProperties));
 
         cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/content/*");
         cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/app/*");
@@ -242,7 +242,7 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        CorsConfiguration config = jHipsterTestProperties.getCors();
+        CorsConfiguration config = jHipsterProperties.getCors();
         if (config.getAllowedOrigins() != null && !config.getAllowedOrigins().isEmpty()) {
             log.debug("Registering CORS filter");
             source.registerCorsConfiguration("/api/**", config);

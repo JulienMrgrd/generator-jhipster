@@ -18,7 +18,7 @@
 -%>
 package <%=packageName%>.gateway.accesscontrol;
 
-import <%=packageName%>.config.JHipsterTestProperties;
+import <%=packageName%>.config.JHipsterProperties;
 
 import java.util.List;
 import java.util.Map;
@@ -41,11 +41,11 @@ public class AccessControlFilter extends ZuulFilter {
 
     private final RouteLocator routeLocator;
 
-    private final JHipsterTestProperties jHipsterTestProperties;
+    private final JHipsterProperties jHipsterProperties;
 
-    public AccessControlFilter(RouteLocator routeLocator, JHipsterTestProperties jHipsterTestProperties) {
+    public AccessControlFilter(RouteLocator routeLocator, JHipsterProperties jHipsterProperties) {
         this.routeLocator = routeLocator;
-        this.jHipsterTestProperties = jHipsterTestProperties;
+        this.jHipsterProperties = jHipsterProperties;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class AccessControlFilter extends ZuulFilter {
     }
 
     private boolean isAuthorizedRequest(String serviceUrl, String serviceName, String requestUri) {
-        Map<String, List<String>> authorizedMicroservicesEndpoints = jHipsterTestProperties.getGateway()
+        Map<String, List<String>> authorizedMicroservicesEndpoints = jHipsterProperties.getGateway()
             .getAuthorizedMicroservicesEndpoints();
 
         // If the authorized endpoints list was left empty for this route, all access are allowed

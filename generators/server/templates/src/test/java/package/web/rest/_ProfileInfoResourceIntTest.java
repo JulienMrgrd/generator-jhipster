@@ -18,7 +18,7 @@
 -%>
 package <%= packageName %>.web.rest;
 
-import <%=packageName%>.config.JHipsterTestProperties;
+import <%=packageName%>.config.JHipsterProperties;
 <%_ if (databaseType === 'cassandra') { _%>
 import <%= packageName %>.AbstractCassandraTest;
 <%_ } _%>
@@ -60,7 +60,7 @@ public class ProfileInfoResourceIntTest <% if (databaseType === 'cassandra') { %
     private Environment environment;
 
     @Mock
-    private JHipsterTestProperties jHipsterTestProperties;
+    private JHipsterProperties jHipsterProperties;
 
     private MockMvc restProfileMockMvc;
 
@@ -68,15 +68,15 @@ public class ProfileInfoResourceIntTest <% if (databaseType === 'cassandra') { %
     public void setup() {
         MockitoAnnotations.initMocks(this);
         String mockProfile[] = {"test"};
-        JHipsterTestProperties.Ribbon ribbon = new JHipsterTestProperties.Ribbon();
+        JHipsterProperties.Ribbon ribbon = new JHipsterProperties.Ribbon();
         ribbon.setDisplayOnActiveProfiles(mockProfile);
-        when(jHipsterTestProperties.getRibbon()).thenReturn(ribbon);
+        when(jHipsterProperties.getRibbon()).thenReturn(ribbon);
 
         String activeProfiles[] = {"test"};
         when(environment.getDefaultProfiles()).thenReturn(activeProfiles);
         when(environment.getActiveProfiles()).thenReturn(activeProfiles);
 
-        ProfileInfoResource profileInfoResource = new ProfileInfoResource(environment, jHipsterTestProperties);
+        ProfileInfoResource profileInfoResource = new ProfileInfoResource(environment, jHipsterProperties);
         this.restProfileMockMvc = MockMvcBuilders
             .standaloneSetup(profileInfoResource)
             .build();
@@ -91,9 +91,9 @@ public class ProfileInfoResourceIntTest <% if (databaseType === 'cassandra') { %
 
     @Test
     public void getProfileInfoWithoutRibbon() throws Exception {
-        JHipsterTestProperties.Ribbon ribbon = new JHipsterTestProperties.Ribbon();
+        JHipsterProperties.Ribbon ribbon = new JHipsterProperties.Ribbon();
         ribbon.setDisplayOnActiveProfiles(null);
-        when(jHipsterTestProperties.getRibbon()).thenReturn(ribbon);
+        when(jHipsterProperties.getRibbon()).thenReturn(ribbon);
 
         restProfileMockMvc.perform(get("/api/profile-info"))
             .andExpect(status().isOk())

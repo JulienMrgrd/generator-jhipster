@@ -37,10 +37,10 @@ public class AsyncConfiguration implements AsyncConfigurer {
 
     private final Logger log = LoggerFactory.getLogger(AsyncConfiguration.class);
 
-    private final JHipsterTestProperties jHipsterTestProperties;
+    private final JHipsterProperties jHipsterProperties;
 
-    public AsyncConfiguration(JHipsterTestProperties jHipsterTestProperties) {
-        this.jHipsterTestProperties = jHipsterTestProperties;
+    public AsyncConfiguration(JHipsterProperties jHipsterProperties) {
+        this.jHipsterProperties = jHipsterProperties;
     }
 
     @Override
@@ -48,9 +48,9 @@ public class AsyncConfiguration implements AsyncConfigurer {
     public Executor getAsyncExecutor() {
         log.debug("Creating Async Task Executor");
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(jHipsterTestProperties.getAsync().getCorePoolSize());
-        executor.setMaxPoolSize(jHipsterTestProperties.getAsync().getMaxPoolSize());
-        executor.setQueueCapacity(jHipsterTestProperties.getAsync().getQueueCapacity());
+        executor.setCorePoolSize(jHipsterProperties.getAsync().getCorePoolSize());
+        executor.setMaxPoolSize(jHipsterProperties.getAsync().getMaxPoolSize());
+        executor.setQueueCapacity(jHipsterProperties.getAsync().getQueueCapacity());
         log.debug("exe {}", executor.getCorePoolSize());
         log.debug("exe {}", executor.getMaxPoolSize());
         log.debug("exe {}", executor.getKeepAliveSeconds());

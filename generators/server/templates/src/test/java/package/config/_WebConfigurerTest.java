@@ -36,7 +36,7 @@ import com.hazelcast.transaction.*;
 import com.hazelcast.web.spring.SpringAwareWebFilter;
 <%_ } _%>
 import io.github.jhipster.config.JHipsterConstants;
-import <%=packageName%>.config.JHipsterTestProperties;
+import <%=packageName%>.config.JHipsterProperties;
 <%_ if (!skipClient) { _%>
 import <%= packageName %>.web.filter.CachingHttpHeadersFilter;
 <%_ } _%>
@@ -87,7 +87,7 @@ public class WebConfigurerTest {
 
     private MockEnvironment env;
 
-    private JHipsterTestProperties props;
+    private JHipsterProperties props;
 
     private MetricRegistry metricRegistry;
 
@@ -104,7 +104,7 @@ public class WebConfigurerTest {
         <%_ } _%>
 
         env = new MockEnvironment();
-        props = new JHipsterTestProperties();
+        props = new JHipsterProperties();
 
         webConfigurer = new WebConfigurer(env, props<% if (clusteredHttpSession === 'hazelcast' || hibernateCache === 'hazelcast') { %>, new MockHazelcastInstance()<% } %>);
         metricRegistry = new MetricRegistry();
@@ -190,7 +190,7 @@ public class WebConfigurerTest {
 
     @Test
     public void testUndertowHttp2Enabled() {
-        props.getHttp().setVersion(JHipsterTestProperties.Http.Version.V_2_0);
+        props.getHttp().setVersion(JHipsterProperties.Http.Version.V_2_0);
         UndertowServletWebServerFactory container = new UndertowServletWebServerFactory();
         webConfigurer.customize(container);
         Builder builder = Undertow.builder();

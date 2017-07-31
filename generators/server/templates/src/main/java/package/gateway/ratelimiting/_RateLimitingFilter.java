@@ -40,7 +40,7 @@ import io.github.bucket4j.*;
 import io.github.bucket4j.grid.GridBucketState;
 import io.github.bucket4j.grid.ProxyManager;
 import io.github.bucket4j.grid.jcache.JCache;
-import <%=packageName%>.config.JHipsterTestProperties;
+import <%=packageName%>.config.JHipsterProperties;
 
 /**
  * Zuul filter for limiting the number of HTTP calls per client.
@@ -55,14 +55,14 @@ public class RateLimitingFilter extends ZuulFilter {
 
     public final static String GATEWAY_RATE_LIMITING_CACHE_NAME = "gateway-rate-limiting";
 
-    private final JHipsterTestProperties jHipsterTestProperties;
+    private final JHipsterProperties jHipsterProperties;
 
     private javax.cache.Cache<String, GridBucketState> cache;
 
     private ProxyManager<String> buckets;
 
-    public RateLimitingFilter(JHipsterTestProperties jHipsterTestProperties) {
-        this.jHipsterTestProperties = jHipsterTestProperties;
+    public RateLimitingFilter(JHipsterProperties jHipsterProperties) {
+        this.jHipsterProperties = jHipsterProperties;
 
         CachingProvider cachingProvider = Caching.getCachingProvider();
         CacheManager cacheManager = cachingProvider.getCacheManager();
@@ -108,8 +108,8 @@ public class RateLimitingFilter extends ZuulFilter {
 
     private Supplier<BucketConfiguration> getConfigSupplier() {
         return () -> {
-            JHipsterTestProperties.Gateway.RateLimiting rateLimitingProperties =
-                jHipsterTestProperties.getGateway().getRateLimiting();
+            JHipsterProperties.Gateway.RateLimiting rateLimitingProperties =
+                jHipsterProperties.getGateway().getRateLimiting();
 
             return Bucket4j.configurationBuilder()
                 .addLimit(Bandwidth.simple(rateLimitingProperties.getLimit(),

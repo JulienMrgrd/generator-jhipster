@@ -29,7 +29,7 @@ import com.datastax.driver.core.exceptions.DriverException;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 
-import <%=packageName%>.config.JHipsterTestProperties;
+import <%=packageName%>.config.JHipsterProperties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;<% if (databaseType === 'sql' || databaseType === 'mongodb') { %>
@@ -103,11 +103,11 @@ public class PersistentTokenRememberMeServices extends
 
     private final UserRepository userRepository;
 
-    public PersistentTokenRememberMeServices(JHipsterTestProperties jHipsterTestProperties,
+    public PersistentTokenRememberMeServices(JHipsterProperties jHipsterProperties,
             org.springframework.security.core.userdetails.UserDetailsService userDetailsService,
             PersistentTokenRepository persistentTokenRepository, UserRepository userRepository) {
 
-        super(jHipsterTestProperties.getSecurity().getRememberMe().getKey(), userDetailsService);
+        super(jHipsterProperties.getSecurity().getRememberMe().getKey(), userDetailsService);
         this.persistentTokenRepository = persistentTokenRepository;
         this.userRepository = userRepository;
     }

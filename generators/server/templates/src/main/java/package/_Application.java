@@ -22,12 +22,11 @@ package <%=packageName%>;
 import <%=packageName%>.client.OAuth2InterceptedFeignConfiguration;
 <%_ } _%>
 import <%=packageName%>.config.ApplicationProperties;
-import <%=packageName%>.config.JHipsterTestProperties;
+import <%=packageName%>.config.JHipsterProperties;
 import <%=packageName%>.config.DefaultProfileUtil;
 import io.github.jhipster.security.uaa.UaaAutoConfiguration;
 
 import io.github.jhipster.config.JHipsterConstants;
-import io.github.jhipster.config.JHipsterProperties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,8 +64,8 @@ import java.util.Collection;
 <%_ } else { _%>
 @ComponentScan
 <%_ } _%>
-@EnableAutoConfiguration(exclude = {JHipsterProperties.class, UaaAutoConfiguration.class, MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class<% if (clusteredHttpSession === 'hazelcast') { %>, HazelcastAutoConfiguration.class<% } %><% if (applicationType === 'gateway') { %>, MetricsDropwizardAutoConfiguration.class<% } %>})
-@EnableConfigurationProperties({JHipsterTestProperties.class, <% if (databaseType === 'sql') { %>LiquibaseProperties.class, <% } %>ApplicationProperties.class})
+@EnableAutoConfiguration(exclude = {UaaAutoConfiguration.class, MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class<% if (clusteredHttpSession === 'hazelcast') { %>, HazelcastAutoConfiguration.class<% } %><% if (applicationType === 'gateway') { %>, MetricsDropwizardAutoConfiguration.class<% } %>})
+@EnableConfigurationProperties({JHipsterProperties.class, <% if (databaseType === 'sql') { %>LiquibaseProperties.class, <% } %>ApplicationProperties.class})
 <%_ if (serviceDiscoveryType) { _%>
 @EnableDiscoveryClient
 <%_ } _%>
@@ -140,7 +139,7 @@ public class <%= mainClass %> {
 
     // TODO: delete ?
     @Bean
-    public JHipsterTestProperties jHipsterTestProperties(){
-        return new JHipsterTestProperties();
+    public JHipsterProperties jHipsterProperties(){
+        return new JHipsterProperties();
     }
 }

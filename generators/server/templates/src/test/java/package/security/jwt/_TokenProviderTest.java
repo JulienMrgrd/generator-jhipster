@@ -19,7 +19,7 @@
 package <%=packageName%>.security.jwt;
 
 import <%=packageName%>.security.AuthoritiesConstants;
-import <%=packageName%>.config.JHipsterTestProperties;
+import <%=packageName%>.config.JHipsterProperties;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.junit.Before;
@@ -41,13 +41,13 @@ public class TokenProviderTest {
 
     private final String secretKey = "e5c9ee274ae87bc031adda32e27fa98b9290da83";
     private final long ONE_MINUTE = 60000;
-    private JHipsterTestProperties jHipsterTestProperties;
+    private JHipsterProperties jHipsterProperties;
     private TokenProvider tokenProvider;
 
     @Before
     public void setup() {
-        jHipsterTestProperties = Mockito.mock(JHipsterTestProperties.class);
-        tokenProvider = new TokenProvider(jHipsterTestProperties);
+        jHipsterProperties = Mockito.mock(JHipsterProperties.class);
+        tokenProvider = new TokenProvider(jHipsterProperties);
         ReflectionTestUtils.setField(tokenProvider, "secretKey", secretKey);
         ReflectionTestUtils.setField(tokenProvider, "tokenValidityInMilliseconds", ONE_MINUTE);
     }

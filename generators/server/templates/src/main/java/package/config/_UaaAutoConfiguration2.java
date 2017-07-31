@@ -31,16 +31,16 @@ import org.springframework.security.oauth2.client.token.grant.client.ClientCrede
 @ConditionalOnProperty("jhipster.security.client-authorization.client-id")
 public class UaaAutoConfiguration2 {
 
-    private JHipsterTestProperties jHipsterTestProperties;
+    private JHipsterProperties jHipsterProperties;
 
-    public UaaAutoConfiguration2(JHipsterTestProperties jHipsterTestProperties) {
-        this.jHipsterTestProperties = jHipsterTestProperties;
+    public UaaAutoConfiguration2(JHipsterProperties jHipsterProperties) {
+        this.jHipsterProperties = jHipsterProperties;
     }
 
     @Bean
     public LoadBalancedResourceDetails loadBalancedResourceDetails(LoadBalancerClient loadBalancerClient) {
         LoadBalancedResourceDetails loadBalancedResourceDetails = new LoadBalancedResourceDetails(loadBalancerClient);
-        JHipsterTestProperties.Security.ClientAuthorization clientAuthorization = jHipsterTestProperties.getSecurity()
+        JHipsterProperties.Security.ClientAuthorization clientAuthorization = jHipsterProperties.getSecurity()
             .getClientAuthorization();
         loadBalancedResourceDetails.setAccessTokenUri(clientAuthorization.getAccessTokenUri());
         loadBalancedResourceDetails.setTokenServiceId(clientAuthorization.getTokenServiceId());

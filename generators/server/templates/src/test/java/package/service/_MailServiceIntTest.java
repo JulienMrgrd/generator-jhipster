@@ -21,7 +21,7 @@ package <%=packageName%>.service;
 import <%=packageName%>.AbstractCassandraTest;<% } %>
 import <%=packageName%>.<%= mainClass %>;
 import <%=packageName%>.domain.User;
-import <%=packageName%>.config.JHipsterTestProperties;
+import <%=packageName%>.config.JHipsterProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,7 +52,7 @@ import static org.mockito.Mockito.*;
 public class MailServiceIntTest <% if (databaseType === 'cassandra') { %>extends AbstractCassandraTest <% } %>{
 
     @Autowired
-    private JHipsterTestProperties jHipsterTestProperties;
+    private JHipsterProperties jHipsterProperties;
 
     @Autowired
     private MessageSource messageSource;
@@ -72,7 +72,7 @@ public class MailServiceIntTest <% if (databaseType === 'cassandra') { %>extends
     public void setup() {
         MockitoAnnotations.initMocks(this);
         doNothing().when(javaMailSender).send(any(MimeMessage.class));
-        mailService = new MailService(jHipsterTestProperties, javaMailSender, messageSource, templateEngine);
+        mailService = new MailService(jHipsterProperties, javaMailSender, messageSource, templateEngine);
     }
 
     @Test

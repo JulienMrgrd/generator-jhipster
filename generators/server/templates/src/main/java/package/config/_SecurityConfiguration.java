@@ -67,7 +67,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
     <%_ if (authenticationType === 'session') { _%>
 
-    private final JHipsterTestProperties jHipsterTestProperties;
+    private final JHipsterProperties jHipsterProperties;
 
     private final RememberMeServices rememberMeServices;
     <%_ } _%>
@@ -85,14 +85,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     <%_ } _%>
 
     public SecurityConfiguration(AuthenticationManagerBuilder authenticationManagerBuilder, UserDetailsService userDetailsService<% if (authenticationType === 'session') { %>,
-        JHipsterTestProperties jHipsterTestProperties, RememberMeServices rememberMeServices<% } if (authenticationType === 'jwt') { %>,
+        JHipsterProperties jHipsterProperties, RememberMeServices rememberMeServices<% } if (authenticationType === 'jwt') { %>,
             TokenProvider tokenProvider<% } %><% if (clusteredHttpSession === 'hazelcast') { %>, SessionRegistry sessionRegistry<% } if (authenticationType !== 'oauth2') { %>,
         CorsFilter corsFilter<% } %>) {
 
         this.authenticationManagerBuilder = authenticationManagerBuilder;
         this.userDetailsService = userDetailsService;
         <%_ if (authenticationType === 'session') { _%>
-        this.jHipsterTestProperties = jHipsterTestProperties;
+        this.jHipsterProperties = jHipsterProperties;
         this.rememberMeServices = rememberMeServices;
         <%_ } _%>
         <%_ if (authenticationType === 'jwt') { _%>
@@ -186,7 +186,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .rememberMe()
             .rememberMeServices(rememberMeServices)
             .rememberMeParameter("remember-me")
-            .key(jHipsterTestProperties.getSecurity().getRememberMe().getKey())
+            .key(jHipsterProperties.getSecurity().getRememberMe().getKey())
         .and()
             .formLogin()
             .loginProcessingUrl("/api/authentication")

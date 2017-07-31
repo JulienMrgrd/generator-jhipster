@@ -18,7 +18,7 @@
 -%>
 package <%=packageName%>.security.jwt;
 
-import <%=packageName%>.config.JHipsterTestProperties;
+import <%=packageName%>.config.JHipsterProperties;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -48,21 +48,21 @@ public class TokenProvider {
 
     private long tokenValidityInMillisecondsForRememberMe;
 
-    private final JHipsterTestProperties jHipsterTestProperties;
+    private final JHipsterProperties jHipsterProperties;
 
-    public TokenProvider(JHipsterTestProperties jHipsterTestProperties) {
-        this.jHipsterTestProperties = jHipsterTestProperties;
+    public TokenProvider(JHipsterProperties jHipsterProperties) {
+        this.jHipsterProperties = jHipsterProperties;
     }
 
     @PostConstruct
     public void init() {
         this.secretKey =
-            jHipsterTestProperties.getSecurity().getAuthentication().getJwt().getSecret();
+            jHipsterProperties.getSecurity().getAuthentication().getJwt().getSecret();
 
         this.tokenValidityInMilliseconds =
-            1000 * jHipsterTestProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSeconds();
+            1000 * jHipsterProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSeconds();
         this.tokenValidityInMillisecondsForRememberMe =
-            1000 * jHipsterTestProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSecondsForRememberMe();
+            1000 * jHipsterProperties.getSecurity().getAuthentication().getJwt().getTokenValidityInSecondsForRememberMe();
     }
 
     public String createToken(Authentication authentication, Boolean rememberMe) {

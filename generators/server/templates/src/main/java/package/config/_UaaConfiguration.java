@@ -55,13 +55,13 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
 
         private final TokenStore tokenStore;
 
-        private final JHipsterTestProperties jHipsterTestProperties;
+        private final JHipsterProperties jHipsterProperties;
 
         private final CorsFilter corsFilter;
 
-        public ResourceServerConfiguration(TokenStore tokenStore, JHipsterTestProperties jHipsterTestProperties, CorsFilter corsFilter) {
+        public ResourceServerConfiguration(TokenStore tokenStore, JHipsterProperties jHipsterProperties, CorsFilter corsFilter) {
             this.tokenStore = tokenStore;
-            this.jHipsterTestProperties = jHipsterTestProperties;
+            this.jHipsterProperties = jHipsterProperties;
             this.corsFilter = corsFilter;
         }
 
@@ -104,10 +104,10 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
         }
     }
 
-    private final JHipsterTestProperties jHipsterTestProperties;
+    private final JHipsterProperties jHipsterProperties;
 
-    public UaaConfiguration(JHipsterTestProperties jHipsterTestProperties) {
-        this.jHipsterTestProperties = jHipsterTestProperties;
+    public UaaConfiguration(JHipsterProperties jHipsterProperties) {
+        this.jHipsterProperties = jHipsterProperties;
     }
 
     @Override
@@ -121,8 +121,8 @@ public class UaaConfiguration extends AuthorizationServerConfigurerAdapter {
             .autoApprove(true)
             .authorizedGrantTypes("implicit","refresh_token", "password", "authorization_code")
             .and()
-            .withClient(jHipsterTestProperties.getSecurity().getClientAuthorization().getClientId())
-            .secret(jHipsterTestProperties.getSecurity().getClientAuthorization().getClientSecret())
+            .withClient(jHipsterProperties.getSecurity().getClientAuthorization().getClientId())
+            .secret(jHipsterProperties.getSecurity().getClientAuthorization().getClientSecret())
             .scopes("web-app")
             .autoApprove(true)
             .authorizedGrantTypes("client_credentials");

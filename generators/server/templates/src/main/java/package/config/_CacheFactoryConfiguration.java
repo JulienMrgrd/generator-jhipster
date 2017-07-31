@@ -34,7 +34,7 @@ import java.util.Properties;
  * This will be created through reflection. With Hibernate 5, support
  * to manage this cache through Spring has been removed and there is no way to inject it using
  * Dependency Injection. This needs to be initialized from
- * {@link CacheConfiguration#cacheConfigurer(io.github.jhipster.config.JHipsterTestProperties) CacheConfiguration } to keep the same cache manager
+ * {@link CacheConfiguration#cacheConfigurer(io.github.jhipster.config.JHipsterProperties) CacheConfiguration } to keep the same cache manager
  * between the Spring Cache and Hibernate.
  */
 public class CacheFactoryConfiguration extends InfinispanRegionFactory {

@@ -117,14 +117,14 @@ import java.util.Map;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class MicroserviceSecurityConfiguration extends ResourceServerConfigurerAdapter {
 
-    private final JHipsterTestProperties jHipsterTestProperties;
+    private final JHipsterProperties jHipsterProperties;
 
     private final DiscoveryClient discoveryClient;
 
-    public MicroserviceSecurityConfiguration(JHipsterTestProperties jHipsterTestProperties,
+    public MicroserviceSecurityConfiguration(JHipsterProperties jHipsterProperties,
             DiscoveryClient discoveryClient) {
 
-        this.jHipsterTestProperties = jHipsterTestProperties;
+        this.jHipsterProperties = jHipsterProperties;
         this.discoveryClient = discoveryClient;
     }
 

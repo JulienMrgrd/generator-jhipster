@@ -19,7 +19,7 @@
 package <%=packageName%>.security.jwt;
 
 import <%=packageName%>.security.AuthoritiesConstants;
-import <%=packageName%>.config.JHipsterTestProperties;
+import <%=packageName%>.config.JHipsterProperties;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
@@ -44,8 +44,8 @@ public class JWTFilterTest {
 
     @Before
     public void setup() {
-        JHipsterTestProperties jHipsterTestProperties = new JHipsterTestProperties();
-        tokenProvider = new TokenProvider(jHipsterTestProperties);
+        JHipsterProperties jHipsterProperties = new JHipsterProperties();
+        tokenProvider = new TokenProvider(jHipsterProperties);
         ReflectionTestUtils.setField(tokenProvider, "secretKey", "test secret");
         ReflectionTestUtils.setField(tokenProvider, "tokenValidityInMilliseconds", 60000);
         jwtFilter = new JWTFilter(tokenProvider);
