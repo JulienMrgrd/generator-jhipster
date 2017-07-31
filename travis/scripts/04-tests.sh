@@ -25,8 +25,8 @@ fi
 cd "$APP_FOLDER"
 if [ -f "mvnw" ]; then
     ./mvnw test \
-        -Dlogging.level.io.github.jhipster.sample=ERROR \
-        -Dlogging.level.io.github.jhipster.travis=ERROR
+        -Dlogging.level.io.github.jhipster.sample=DEBUG \
+        -Dlogging.level.io.github.jhipster.travis=DEBUG
 elif [ -f "gradlew" ]; then
     ./gradlew test \
         -Dlogging.level.io.github.jhipster.sample=ERROR \

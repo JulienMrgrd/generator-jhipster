@@ -82,16 +82,16 @@ if [ "$RUN_APP" == 1 ]; then
         cd "$UAA_APP_FOLDER"
         java -jar target/*.war \
             --spring.profiles.active="$PROFILE" \
-            --logging.level.io.github.jhipster.sample=ERROR \
-            --logging.level.io.github.jhipster.travis=ERROR &
+            --logging.level.io.github.jhipster.sample=DEBUG \
+            --logging.level.io.github.jhipster.travis=DEBUG &
         sleep 80
     fi
 
     cd "$APP_FOLDER"
     java -jar app.war \
         --spring.profiles.active="$PROFILE" \
-        --logging.level.io.github.jhipster.sample=ERROR \
-        --logging.level.io.github.jhipster.travis=ERROR &
+        --logging.level.io.github.jhipster.sample=DEBUG \
+        --logging.level.io.github.jhipster.travis=DEBUG &
     sleep 40
 
     if [[ ("$JHIPSTER" != 'app-microservice-eureka') && ("$JHIPSTER" != 'app-microservice-consul') ]]; then
