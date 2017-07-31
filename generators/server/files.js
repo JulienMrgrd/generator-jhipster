@@ -329,6 +329,10 @@ function writeFiles() {
 
             // TODO: delete
             this.template(`${SERVER_MAIN_SRC_DIR}package/web/filter/_CachingHttpHeadersFilter.java`, `${javaDir}web/filter/CachingHttpHeadersFilter.java`);
+            this.template(`${SERVER_MAIN_SRC_DIR}package/config/_JHipsterTestProperties.java`, `${javaDir}config/JHipsterTestProperties.java`);
+            if (this.authenticationType === 'oauth2') {
+                this.template(`${SERVER_MAIN_SRC_DIR}package/config/_UaaAutoConfiguration2.java`, `${javaDir}config/UaaAutoConfiguration2.java`);
+            }
 
             this.template(`${SERVER_MAIN_SRC_DIR}package/config/_package-info.java`, `${javaDir}config/package-info.java`);
             this.template(`${SERVER_MAIN_SRC_DIR}package/config/_AsyncConfiguration.java`, `${javaDir}config/AsyncConfiguration.java`);
@@ -352,7 +356,6 @@ function writeFiles() {
             this.template(`${SERVER_MAIN_SRC_DIR}package/config/_ApplicationProperties.java`, `${javaDir}config/ApplicationProperties.java`);
             this.template(`${SERVER_MAIN_SRC_DIR}package/config/_JacksonConfiguration.java`, `${javaDir}config/JacksonConfiguration.java`);
             this.template(`${SERVER_MAIN_SRC_DIR}package/config/_LocaleConfiguration.java`, `${javaDir}config/LocaleConfiguration.java`);
-            this.template(`${SERVER_MAIN_SRC_DIR}package/config/_JHipsterTestProperties.java`, `${javaDir}config/JHipsterTestProperties.java`);
             this.template(`${SERVER_MAIN_SRC_DIR}package/config/_LoggingAspectConfiguration.java`, `${javaDir}config/LoggingAspectConfiguration.java`);
             this.template(`${SERVER_MAIN_SRC_DIR}package/config/_MetricsConfiguration.java`, `${javaDir}config/MetricsConfiguration.java`);
             this.template(`${SERVER_MAIN_SRC_DIR}package/config/_ThymeleafConfiguration.java`, `${javaDir}config/ThymeleafConfiguration.java`);

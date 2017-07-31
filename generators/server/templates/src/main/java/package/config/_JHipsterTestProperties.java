@@ -32,7 +32,7 @@ import org.springframework.web.cors.CorsConfiguration;
  * Properties are configured in the application.yml file.
  * </p>
  */
-@ConfigurationProperties(prefix = "thomas", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "jhipster", ignoreUnknownFields = false)
 public class JHipsterTestProperties {
 
     // TODO: delete ?

@@ -2,7 +2,7 @@ configserver:
     name: Docker Consul Service
     status: Connected to Consul Server running in Docker
 
-thomas:
+jhipster:
     security:
         authentication:
             jwt:

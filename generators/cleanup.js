@@ -66,6 +66,7 @@ function cleanupOldServerFiles(generator, javaDir, testDir) {
     if (generator.isJhipsterVersionLessThan('4.0.0')) {
         generator.removeFile(`${javaDir}async/ExceptionHandlingAsyncTaskExecutor.java`);
         generator.removeFile(`${javaDir}async/package-info.java`);
+        generator.removeFile(`${javaDir}config/jHipsterProperties.java`);
         generator.removeFile(`${javaDir}config/LoadBalancedResourceDetails.java`);
         generator.removeFile(`${javaDir}config/ElasticSearchConfiguration.java`);
         generator.removeFile(`${javaDir}config/apidoc/package-info.java`);
@@ -93,4 +94,8 @@ function cleanupOldServerFiles(generator, javaDir, testDir) {
         generator.removeFile(`${javaDir}gateway/ratelimiting/RateLimitingRepository.java`);
         generator.removeFile(`${javaDir}config/cassandra/CustomZonedDateTimeCodec.java`);
     }
+
+    generator.removeFile(`${javaDir}config/JhipsterProperties.java`);
+    generator.removeFile(`${javaDir}config/UaaAutoConfiguration.java`);
+    generator.removeFile(`${javaDir}security/uaa/UaaAutoConfiguration.java`);
 }

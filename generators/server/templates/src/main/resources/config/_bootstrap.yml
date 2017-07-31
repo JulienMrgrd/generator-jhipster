@@ -22,7 +22,7 @@
 # ===================================================================
 <%_ if (serviceDiscoveryType === 'eureka') { _%>
 
-thomas:
+jhipster:
     registry:
         password: admin
 <%_ } _%>

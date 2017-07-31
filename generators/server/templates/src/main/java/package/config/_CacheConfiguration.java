@@ -17,6 +17,7 @@
  limitations under the License.
 -%>
 package <%=packageName%>.config;
+
 <%_ if (hibernateCache === 'ehcache') { _%>
 
 import org.ehcache.config.builders.CacheConfigurationBuilder;
