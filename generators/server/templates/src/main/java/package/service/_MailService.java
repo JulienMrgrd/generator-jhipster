@@ -31,6 +31,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
+import org.thymeleaf.context.AbstractContext;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 <%_ if (enableSocialSignIn) { _%>
 import org.apache.commons.lang3.StringUtils;
@@ -97,7 +98,7 @@ public class MailService {
     @Async
     public void sendEmailFromTemplate(User user, String templateName, String titleKey) {
         Locale locale = Locale.forLanguageTag(user.getLangKey());
-        Context context = new Context(locale);
+        AbstractContext context = new Context(locale);
         context.setVariable(USER, user);
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process(templateName, context);
