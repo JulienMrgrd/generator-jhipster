@@ -51,6 +51,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest(classes = <%= mainClass %>.class)
 public class MailServiceIntTest <% if (databaseType === 'cassandra') { %>extends AbstractCassandraTest <% } %>{
 
+
 //    @Autowired
 //    private JHipsterProperties jHipsterProperties;
 //
