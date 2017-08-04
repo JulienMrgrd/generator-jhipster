@@ -47,10 +47,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest(classes = <%= mainClass %>.class)
-//public class MailServiceIntTest <% if (databaseType === 'cassandra') { %>extends AbstractCassandraTest <% } %>{
-//
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = <%= mainClass %>.class)
+public class MailServiceIntTest <% if (databaseType === 'cassandra') { %>extends AbstractCassandraTest <% } %>{
+
 //    @Autowired
 //    private JHipsterProperties jHipsterProperties;
 //
@@ -201,6 +201,5 @@ import static org.mockito.Mockito.*;
 //        doThrow(MailSendException.class).when(javaMailSender).send(any(MimeMessage.class));
 //        mailService.sendEmail("john.doe@example.com", "testSubject","testContent", false, false);
 //    }
-
 
 }
