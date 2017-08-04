@@ -190,7 +190,7 @@ public class PersistentTokenRememberMeServices extends
      * current user, so when he logs out from one browser, all his other sessions are destroyed.
      */
     @Override<% if (databaseType === 'sql') { %>
-    @Transactional<% } %>
+    @Transactional<% } %> // TODO broken
     public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String rememberMeCookie = extractRememberMeCookie(request);
         if (rememberMeCookie != null && rememberMeCookie.length() != 0) {
