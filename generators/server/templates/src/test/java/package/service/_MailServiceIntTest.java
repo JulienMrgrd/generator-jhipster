@@ -52,6 +52,7 @@ import static org.mockito.Mockito.*;
 public class MailServiceIntTest <% if (databaseType === 'cassandra') { %>extends AbstractCassandraTest <% } %>{
 
 
+
 //    @Autowired
 //    private JHipsterProperties jHipsterProperties;
 //
