@@ -73,7 +73,7 @@ dependencyManagement {
 <%_ } _%>
 defaultTasks 'bootRun'
 
-bootRepackage {
+bootWar {
     enabled = false
 }
 
@@ -82,8 +82,8 @@ war {
 }
 
 springBoot {
-    mainClass = '<%= packageName %>.<%= mainClass %>'
-    executable = true
+//    mainClass = '<%= packageName %>.<%= mainClass %>'
+//    executable = true
     buildInfo()
 }
 
@@ -102,7 +102,7 @@ if (OperatingSystem.current().isWindows()) {
     }
 
     bootRun {
-        addResources = false
+//        addResources = false
         dependsOn pathingJar
         doFirst {
             classpath = files("$buildDir/classes/java/main", "$buildDir/resources/main", pathingJar.archivePath)
@@ -110,7 +110,7 @@ if (OperatingSystem.current().isWindows()) {
     }
 } else {
     bootRun {
-        addResources = false
+//        addResources = false
     }
 }
 
