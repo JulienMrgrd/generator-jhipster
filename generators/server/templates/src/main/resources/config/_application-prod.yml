@@ -291,7 +291,7 @@ jhipster:
     security:
         remember-me:
             # security key (this key should be unique for your application, and kept secret)
-            key: <%= rememberMeKey %>
+            key: 448f9a67a8a292c4905a733ec22cc3b78e493c56
 <%_ } _%>
     mail: # specific JHipster mail property, for standard properties see MailProperties
         from: <%= baseName %>@localhost
