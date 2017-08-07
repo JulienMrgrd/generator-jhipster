@@ -106,11 +106,10 @@ public class PersistentTokenRememberMeServices extends
     public PersistentTokenRememberMeServices(JHipsterProperties jHipsterProperties,
             org.springframework.security.core.userdetails.UserDetailsService userDetailsService,
             PersistentTokenRepository persistentTokenRepository, UserRepository userRepository) {
+
         super(jHipsterProperties.getSecurity().getRememberMe().getKey(), userDetailsService);
         this.persistentTokenRepository = persistentTokenRepository;
         this.userRepository = userRepository;
-        log.debug(jHipsterProperties.toString());
-        log.debug(jHipsterProperties.getSecurity().getRememberMe().getKey());
     }
 
     @Override
