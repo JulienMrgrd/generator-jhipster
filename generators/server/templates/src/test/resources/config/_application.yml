@@ -119,7 +119,7 @@ spring:
         favicon:
             enabled: false
     thymeleaf:
-        mode: HTML
+        mode: HTML5
 
 liquibase:
     contexts: test
