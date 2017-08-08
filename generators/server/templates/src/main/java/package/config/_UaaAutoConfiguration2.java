@@ -19,6 +19,7 @@
 
 package <%=packageName%>.config;
 
+import io.github.jhipster.security.uaa.LoadBalancedResourceDetails;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;

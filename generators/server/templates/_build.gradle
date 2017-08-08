@@ -360,6 +360,7 @@ dependencies {
     compile "org.springframework.security:spring-security-messaging"
     <%_ } _%>
     <%_ if (authenticationType === 'oauth2') { _%>
+    compile "org.springframework.cloud:spring-cloud-commons"
     compile "org.springframework.security.oauth:spring-security-oauth2:${spring_security_oauth2_version}"
     <%_ } _%>
     <%_ if (authenticationType === 'jwt') { _%>
