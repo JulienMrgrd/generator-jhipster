@@ -221,42 +221,39 @@ jhipster:
     gateway:
         rate-limiting:
             enabled: false
-        authorized-microservices-endpoints: # Access Control Policy, if left empty for a route, all endpoints will be accessible
-            app1: /api # recommended prod configuration
+        authorized-microservices-endpoints:
+            app1: /api
     <%_ } _%>
     http:
-        version: V_1_1 # To use HTTP/2 you will need SSL support (see above the "server.ssl" configuration)
-        cache: # Used by the CachingHttpHeadersFilter
+        version: V_1_1
+        cache:
             timeToLiveInDays: 1461
     <%_ if (clusteredHttpSession === 'hazelcast' || hibernateCache === 'hazelcast' ||  hibernateCache === 'ehcache' || hibernateCache === 'infinispan') { _%>
-    cache: # Cache configuration
+    cache:
         <%_ if (clusteredHttpSession === 'hazelcast' || hibernateCache === 'hazelcast') { _%>
-        hazelcast: # Hazelcast distributed cache
+        hazelcast:
             time-to-live-seconds: 3600
             backup-count: 1
         <%_ } _%>
         <%_ if (hibernateCache === 'ehcache') { _%>
-        ehcache: # Ehcache configuration
-            time-to-live-seconds: 3600 # By default objects stay 1 hour in the cache
-            max-entries: 1000 # Number of objects in each cache entry
+        ehcache:
+            time-to-live-seconds: 3600
+            max-entries: 1000
         <%_ } _%>
         <%_ if (hibernateCache === 'infinispan') { _%>
         infinispan:
             config-file: default-configs/default-jgroups-tcp.xml
             statsEnabled: true
-            # local app cache
             local:
-                time-to-live-seconds: 60 # By default objects stay 1 hour (in minutes) in the cache
-                max-entries: 1000 # Number of objects in each cache entry
-            # distributed app cache
+                time-to-live-seconds: 60
+                max-entries: 1000
             distributed:
-                time-to-live-seconds: 60 # By default objects stay 1 hour (in minutes) in the cache
-                max-entries: 1000 # Number of objects in each cache entry
+                time-to-live-seconds: 60
+                max-entries: 1000
                 instance-count: 2
-            # replicated app cache
             replicated:
-                time-to-live-seconds: 60 # By default objects stay 1 hour (in minutes) in the cache
-                max-entries: 1000 # Number of objects in each cache entry
+                time-to-live-seconds: 60
+                max-entries: 1000
         <%_ } _%>
     <%_ } _%>
     <%_ if (authenticationType === 'jwt') { _%>
@@ -264,7 +261,6 @@ jhipster:
         authentication:
             jwt:
                 secret: <%= jwtSecretKey %>
-                # Token is valid 24 hours
                 token-validity-in-seconds: 86400
                 token-validity-in-seconds-for-remember-me: 2592000
     <%_ } _%>
@@ -284,19 +280,17 @@ jhipster:
             oauth:
                 client-id: <%= baseName %>app
                 client-secret: my-secret-token-to-change-in-production
-                # Token is valid 30 minutes
                 token-validity-in-seconds: 1800
     <%_ } _%>
 <%_ if (authenticationType === 'session') { _%>
     security:
         remember-me:
-            # security key (this key should be unique for your application, and kept secret)
             key: <%= rememberMeKey %>
 <%_ } _%>
-    mail: # specific JHipster mail property, for standard properties see MailProperties
+    mail:
         from: <%= baseName %>@localhost
-        base-url: http://my-server-url-to-change # Modify according to your server's URL
-    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
+        base-url: http://my-server-url-to-change
+    metrics:
         jmx.enabled: true
         graphite:
             enabled: false
@@ -306,26 +300,15 @@ jhipster:
         prometheus:
             enabled: false
             endpoint: /prometheusMetrics
-        logs: # Reports Dropwizard metrics in the logs
+        logs:
             enabled: false
-            report-frequency: 60 # in seconds
     logging:
-        logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
+        logstash:
             enabled: false
             host: localhost
             port: 5000
             queue-size: 512
     <%_ if (applicationType === 'microservice' || applicationType === 'gateway') { _%>
-        spectator-metrics: # Reports Spectator Circuit Breaker metrics in the logs
+        spectator-metrics:
             enabled: false
-            # edit spring.metrics.export.delay-millis to set report frequency
     <%_ } _%>
-
-# ===================================================================
-# Application specific properties
-# Add your own application properties here, see the ApplicationProperties class
-# to have type-safe configuration, like in the JHipsterProperties above
-#
-# More documentation is available at:
-# https://jhipster.github.io/common-application-properties/
-# ===================================================================

@@ -181,4 +181,3 @@ jhipster:
         jmx.enabled: true
         logs:
             enabled: true
-            report-frequency: 60
