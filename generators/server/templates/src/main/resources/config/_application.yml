@@ -176,11 +176,24 @@ info:
         version: #project.version#
 <%_ } _%>
 
+# ===================================================================
+# JHipster specific properties
+#
+# Full reference is available at: https://jhipster.github.io/common-application-properties/
+# ===================================================================
 jhipster.async.core-pool-size: 2
 jhipster.async.max-pool-size: 50
 jhipster.async.queue-capacity: 10000
 
 jhipster:
+    # By default CORS is disabled. Uncomment to enable.
+    #cors:
+        #allowed-origins: "*"
+        #allowed-methods: GET, PUT, POST, DELETE, OPTIONS
+        #allowed-headers: "*"
+        #exposed-headers:
+        #allow-credentials: true
+        #max-age: 1800
     mail:
         from: <%= baseName %>@localhost
     swagger:
@@ -188,6 +201,12 @@ jhipster:
         title: <%=baseName%> API
         description: <%=baseName%> API documentation
         version: 0.0.1
+        terms-of-service-url:
+        contact-name:
+        contact-url:
+        contact-email:
+        license:
+        license-url:
 <%_ if (enableSocialSignIn) { _%>
     social:
         <%_ if (authenticationType === 'jwt') { _%>
@@ -198,3 +217,12 @@ jhipster:
 <%_ } _%>
     ribbon:
         display-on-active-profiles: dev
+
+# ===================================================================
+# Application specific properties
+# Add your own application properties here, see the ApplicationProperties class
+# to have type-safe configuration, like in the JHipsterProperties above
+#
+# More documentation is available at:
+# https://jhipster.github.io/common-application-properties/
+# ===================================================================
