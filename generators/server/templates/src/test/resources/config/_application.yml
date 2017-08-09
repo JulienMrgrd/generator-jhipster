@@ -143,7 +143,6 @@ jhipster:
         core-pool-size: 1
         max-pool-size: 50
         queue-capacity: 10000
-    # To test logstash appender
     logging:
         logstash:
             enabled: true

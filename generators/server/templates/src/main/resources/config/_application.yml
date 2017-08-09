@@ -186,14 +186,6 @@ jhipster.async.max-pool-size: 50
 jhipster.async.queue-capacity: 10000
 
 jhipster:
-    # By default CORS is disabled. Uncomment to enable.
-    #cors:
-        #allowed-origins: "*"
-        #allowed-methods: GET, PUT, POST, DELETE, OPTIONS
-        #allowed-headers: "*"
-        #exposed-headers:
-        #allow-credentials: true
-        #max-age: 1800
     mail:
         from: <%= baseName %>@localhost
     swagger:
