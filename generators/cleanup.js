@@ -95,7 +95,4 @@ function cleanupOldServerFiles(generator, javaDir, testDir) {
         generator.removeFile(`${javaDir}config/cassandra/CustomZonedDateTimeCodec.java`);
     }
 
-    generator.removeFile(`${javaDir}config/JhipsterProperties.java`);
-    generator.removeFile(`${javaDir}config/UaaAutoConfiguration.java`);
-    generator.removeFile(`${javaDir}security/uaa/UaaAutoConfiguration.java`);
 }
