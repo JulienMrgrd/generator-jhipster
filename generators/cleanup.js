@@ -94,5 +94,4 @@ function cleanupOldServerFiles(generator, javaDir, testDir) {
         generator.removeFile(`${javaDir}gateway/ratelimiting/RateLimitingRepository.java`);
         generator.removeFile(`${javaDir}config/cassandra/CustomZonedDateTimeCodec.java`);
     }
-
 }

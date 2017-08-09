@@ -104,7 +104,7 @@ spring:
     <%_ } } _%>
     <%_ if (searchEngine === 'elasticsearch') { _%>
         elasticsearch:
-            cluster-name:  docker_travispsqlesnoi18n-elasticsearch_1
+            cluster-name: docker_travispsqlesnoi18n-elasticsearch_1
             cluster-nodes: 0.0.0.0:9300
             properties:
                 path:
