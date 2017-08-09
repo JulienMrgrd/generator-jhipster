@@ -176,11 +176,6 @@ info:
         version: #project.version#
 <%_ } _%>
 
-# ===================================================================
-# JHipster specific properties
-#
-# Full reference is available at: https://jhipster.github.io/common-application-properties/
-# ===================================================================
 jhipster.async.core-pool-size: 2
 jhipster.async.max-pool-size: 50
 jhipster.async.queue-capacity: 10000
@@ -209,12 +204,3 @@ jhipster:
 <%_ } _%>
     ribbon:
         display-on-active-profiles: dev
-
-# ===================================================================
-# Application specific properties
-# Add your own application properties here, see the ApplicationProperties class
-# to have type-safe configuration, like in the JHipsterProperties above
-#
-# More documentation is available at:
-# https://jhipster.github.io/common-application-properties/
-# ===================================================================

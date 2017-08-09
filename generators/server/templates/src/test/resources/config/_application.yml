@@ -132,12 +132,6 @@ server:
     port: 10344
     address: localhost
 
-# ===================================================================
-# JHipster specific properties
-#
-# Full reference is available at: https://jhipster.github.io/common-application-properties/
-# ===================================================================
-
 jhipster:
     async:
         core-pool-size: 1
@@ -160,7 +154,6 @@ jhipster:
     <%_ if (authenticationType === 'jwt' || authenticationType === 'uaa') { _%>
             jwt:
                 secret: <%= jwtSecretKey %>
-                # Token is valid 24 hours
                 token-validity-in-seconds: 86400
     <%_ } _%>
     <%_ if ((applicationType === 'microservice' || applicationType === 'uaa') && authenticationType === 'uaa') { _%>
@@ -176,27 +169,16 @@ jhipster:
             oauth:
                 client-id: <%= baseName %>app
                 client-secret: my-secret-token-to-change-in-production
-                # Token is valid 30 minutes
                 token-validity-in-seconds: 1800
     <%_ } _%>
 <%_ } _%>
 <%_ if (authenticationType === 'session') { _%>
     security:
         remember-me:
-            # security key (this key should be unique for your application, and kept secret)
             key: <%= rememberMeKey %>
 <%_ } _%>
-    metrics: # DropWizard Metrics configuration, used by MetricsConfiguration
+    metrics:
         jmx.enabled: true
-        logs: # Reports Dropwizard metrics in the logs
+        logs:
             enabled: true
-            report-frequency: 60 # in seconds
-
-# ===================================================================
-# Application specific properties
-# Add your own application properties here, see the ApplicationProperties class
-# to have type-safe configuration, like in the JHipsterProperties above
-#
-# More documentation is available at:
-# https://jhipster.github.io/common-application-properties/
-# ===================================================================
+            report-frequency: 60
