@@ -191,6 +191,7 @@ jhipster:
         jmx.enabled: true
         logs: # Reports Dropwizard metrics in the logs
             enabled: true
+            report-frequency: 60 # in seconds
 
 # ===================================================================
 # Application specific properties
