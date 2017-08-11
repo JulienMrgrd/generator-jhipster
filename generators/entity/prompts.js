@@ -31,6 +31,7 @@ module.exports = {
     askForRelationsToRemove,
     askForTableName,
     askForDTO,
+    askForReactive,
     askForService,
     askForPagination
 };
@@ -302,6 +303,39 @@ function askForDTO() {
     ];
     this.prompt(prompts).then((props) => {
         this.dto = props.dto;
+        done();
+    });
+}
+
+function askForReactive() {
+    // don't prompt if data is imported from a file or server is skipped
+    if (this.useConfigurationFile || this.skipServer) {
+        return;
+    }
+    if (this.databaseType !== 'mongodb' && this.databaseType !== 'cassandra') {
+        return;
+    }
+    const done = this.async();
+    const prompts = [
+        {
+            type: 'list',
+            name: 'reactive',
+            message: 'Do you want to use a Reactive repository?',
+            choices: [
+                {
+                    value: 'no',
+                    name: 'No, use the default repository'
+                },
+                {
+                    value: 'yes',
+                    name: '[BETA] Yes, generate a Reactive repository'
+                }
+            ],
+            default: 0
+        }
+    ];
+    this.prompt(prompts).then((props) => {
+        this.reactive = props.reactive;
         done();
     });
 }

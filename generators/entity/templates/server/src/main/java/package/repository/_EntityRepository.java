@@ -35,8 +35,9 @@ import org.springframework.data.repository.query.Param;<% } %>
     if (importList === true) {
 _%>
 import java.util.List;<% if (fieldsContainOwnerManyToMany === true) { %>
-import java.util.Optional;<%_ } _%><% }} %><% if (databaseType === 'mongodb') { %>
-import org.springframework.data.mongodb.repository.MongoRepository;<% } %><% if (databaseType === 'cassandra') { %>
+import java.util.Optional;<%_ } _%><% }} %><% if (databaseType === 'mongodb'&& reactive === 'yes') { %>
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;<% } %><% if (databaseType === 'mongodb'&& reactive === 'no') { %>import org.springframework.data.mongodb.repository.MongoRepository;<% } %>
+<% if (databaseType === 'cassandra') { %>
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -65,7 +66,7 @@ import java.util.UUID;<% } %>
 <%_ } if (databaseType === 'sql' || databaseType === 'mongodb') { _%>
 @SuppressWarnings("unused")
 @Repository
-public interface <%=entityClass%>Repository extends <% if (databaseType === 'sql') { %>JpaRepository<% } %><% if (databaseType === 'mongodb') { %>MongoRepository<% } %><<%=entityClass%>,<%= pkType %>> {
+public interface <%=entityClass%>Repository extends <% if (databaseType === 'sql') { %>JpaRepository<% } %><% if (databaseType === 'mongodb'&& reactive === 'yes') { %>ReactiveMongoRepository<% } %><% if (databaseType === 'mongodb'&& reactive === 'no') { %>MongoRepository<% } %><<%=entityClass%>,<%= pkType %>> {
     <%_ for (idx in relationships) {
         if (relationships[idx].relationshipType === 'many-to-one' && relationships[idx].otherEntityName === 'user') { _%>
 

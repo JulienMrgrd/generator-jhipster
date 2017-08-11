@@ -212,6 +212,7 @@ module.exports = EntityGenerator.extend({
                 this.pagination = 'no';
                 this.validation = false;
                 this.dto = 'no';
+                this.reactive = 'no';
                 this.service = 'no';
             } else {
                 // existing entity reading values from file
@@ -249,6 +250,7 @@ module.exports = EntityGenerator.extend({
         this.fields = this.fileData.fields || [];
         this.changelogDate = this.fileData.changelogDate;
         this.dto = this.fileData.dto;
+        this.reactive = this.fileData.reactive;
         this.service = this.fileData.service;
         this.fluentMethods = this.fileData.fluentMethods;
         this.pagination = this.fileData.pagination;
@@ -300,6 +302,7 @@ module.exports = EntityGenerator.extend({
         askForRelationsToRemove: prompts.askForRelationsToRemove,
         askForTableName: prompts.askForTableName,
         askForDTO: prompts.askForDTO,
+        askForReactive: prompts.askForReactive(),
         askForService: prompts.askForService,
         askForPagination: prompts.askForPagination
     },
@@ -396,6 +399,10 @@ module.exports = EntityGenerator.extend({
                 this.warning(`dto is missing in .jhipster/${this.name}.json, using no as fallback`);
                 this.dto = 'no';
             }
+            if (_.isUndefined(this.reactive)) {
+                this.warning(`reactive is missing in .jhipster/${this.name}.json, using no as fallback`);
+                this.reactive = 'no';
+            }
             if (_.isUndefined(this.service)) {
                 this.warning(`service is missing in .jhipster/${this.name}.json, using no as fallback`);
                 this.service = 'no';
@@ -424,6 +431,7 @@ module.exports = EntityGenerator.extend({
             this.data.fields = this.fields;
             this.data.changelogDate = this.changelogDate;
             this.data.dto = this.dto;
+            this.data.reactive = this.reactive;
             this.data.service = this.service;
             this.data.entityTableName = this.entityTableName;
             if (this.databaseType === 'sql' || this.databaseType === 'mongodb') {
@@ -714,6 +722,7 @@ module.exports = EntityGenerator.extend({
             insight.track('entity/relationships', this.relationships.length);
             insight.track('entity/pagination', this.pagination);
             insight.track('entity/dto', this.dto);
+            insight.track('entity/reactive', this.reactive);
             insight.track('entity/service', this.service);
             insight.track('entity/fluentMethods', this.fluentMethods);
         }

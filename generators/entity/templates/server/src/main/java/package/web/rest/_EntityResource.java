@@ -47,6 +47,10 @@ import org.springframework.http.HttpStatus;
 <%_ } _%>
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+<% if (reactive === 'yes') { _%>
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+<%_ } _%>
 <% if (validation) { %>
 import javax.validation.Valid;<% } %>
 import java.net.URI;
@@ -107,14 +111,17 @@ public class <%= entityClass %>Resource {
      */
     @PutMapping("/<%= entityApiUrl %>")
     @Timed
-    public ResponseEntity<<%= instanceType %>> update<%= entityClass %>(<% if (validation) { %>@Valid <% } %>@RequestBody <%= instanceType %> <%= instanceName %>) throws URISyntaxException {
+    public <% if (reactive === 'yes') { %>Mono<ResponseEntity<<%= instanceType %>>><% }else { %>ResponseEntity<<%= instanceType %>><% }%> update<%= entityClass %>(<% if (validation) { %>@Valid <% } %>@RequestBody <%= instanceType %> <%= instanceName %>) throws URISyntaxException {
         log.debug("REST request to update <%= entityClass %> : {}", <%= instanceName %>);
         if (<%= instanceName %>.getId() == null) {
             return create<%= entityClass %>(<%= instanceName %>);
         }<%- include('../../common/save_template', {viaService: viaService, returnDirectly: false}); -%>
-        return ResponseEntity.ok()
+        <% if (reactive === 'yes') { %>return result.map((<%= entityClass %> saved<%= entityClass %>) ->
+            ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, saved<%= entityClass %>.getId()))
+            .body(saved<%= entityClass %>));<% } else { %>return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, <%= instanceName %>.getId().toString()))
-            .body(result);
+            .body(result);<% } %>
     }
 
     /**
@@ -135,9 +142,9 @@ public class <%= entityClass %>Resource {
      */
     @GetMapping("/<%= entityApiUrl %>/{id}")
     @Timed
-    public ResponseEntity<<%= instanceType %>> get<%= entityClass %>(@PathVariable <%= pkType %> id) {
-        log.debug("REST request to get <%= entityClass %> : {}", id);<%- include('../../common/get_template', {viaService: viaService, returnDirectly:false}); -%>
-        return ResponseUtil.wrapOrNotFound(<%= instanceName %>);
+    public <% if (reactive === 'yes') { %>Mono<ResponseEntity<<%= instanceType %>>><% }else { %>ResponseEntity<<%= instanceType %>><% }%> get<%= entityClass %>(@PathVariable <%= pkType %> id) {
+        log.debug("REST request to get <%= entityClass %> : {}", id);<%- include('../../common/get_template', {viaService: viaService, reactive: reactive, returnDirectly:false}); -%>
+        return <% if (reactive === 'yes') { %>Async<%} else {%>Response<% } %>Util.wrapOrNotFound(<%= instanceName %>);
     }
 
     /**
@@ -148,9 +155,9 @@ public class <%= entityClass %>Resource {
      */
     @DeleteMapping("/<%= entityApiUrl %>/{id}")
     @Timed
-    public ResponseEntity<Void> delete<%= entityClass %>(@PathVariable <%= pkType %> id) {
-        log.debug("REST request to delete <%= entityClass %> : {}", id);<%- include('../../common/delete_template', {viaService: viaService}); -%>
-        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id<% if (pkType !== 'String') { %>.toString()<% } %>)).build();
+    public <% if (reactive === 'yes') { %>Mono<ResponseEntity<Void>><% }else { %>ResponseEntity<Void><% }%> delete<%= entityClass %>(@PathVariable <%= pkType %> id) {
+        log.debug("REST request to delete <%= entityClass %> : {}", id);<%- include('../../common/delete_template', {viaService: viaService, reactive: reactive}); -%>
+        <% if (reactive === 'no') { %>return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id<% if (pkType !== 'String') { %>.toString()<% } %>)).build();<% } %>
     }<% if (searchEngine === 'elasticsearch') { %>
 
     /**
