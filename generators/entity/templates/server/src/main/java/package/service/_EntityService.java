@@ -59,15 +59,15 @@ public interface <%= entityClass %>Service {
      *  @param pageable the pagination information<% } %>
      *  @return the list of entities
      */
-    <% if (pagination !== 'no') { %>Page<<%= instanceType %><% } else { %>List<<%= instanceType %><% } %>> findAll(<% if (pagination !== 'no') { %>Pageable pageable<% } %>);
-<% for (idx in relationships) { if (relationships[idx].relationshipType === 'one-to-one' && relationships[idx].ownerSide !== true) { -%>
+    <% if (pagination !== 'no') { if (reactive === 'yes') { %> Flux<<%= instanceType %><% } else { %>Page<<%= instanceType %> <% } %><% } else { %>List<<%= instanceType %><% } %>> findAll(<% if (pagination !== 'no') { %>Pageable pageable<% } %>);
+    <% for (idx in relationships) { if (relationships[idx].relationshipType === 'one-to-one' && relationships[idx].ownerSide !== true) { -%>
     /**
      *  Get all the <%= entityClass %>DTO where <%= relationships[idx].relationshipNameCapitalized %> is null.
      *
      *  @return the list of entities
      */
     List<<%= instanceType %>> findAllWhere<%= relationships[idx].relationshipNameCapitalized %>IsNull();
-<% } } -%>
+    <% } } -%>
 
     /**
      *  Get the "id" <%= entityInstance %>.
@@ -93,4 +93,6 @@ public interface <%= entityClass %>Service {
      *  @return the list of entities
      */
     <% if (pagination !== 'no') { %>Page<<%= instanceType %><% } else { %>List<<%= instanceType %><% } %>> search(String query<% if (pagination !== 'no') { %>, Pageable pageable<% } %>);<% } %>
+
+    <% if (pagination !== 'no' && reactive !== 'no') { %>Mono<Long> count();<% } %>
 }

@@ -22,7 +22,7 @@
         return <%= entityInstance %>Repository.findById(id)
             .map(saved<%= entityClass %> -> {
                  <%= entityInstance %>Repository.deleteById(id).subscribe();
-                 return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id)).build();
+                 return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("<%= entityInstance %>", id)).build();
             });<% } %><% if (databaseType === 'cassandra') { %><%= entityInstance %>Repository.delete(UUID.fromString(id));<% } %><% if (searchEngine === 'elasticsearch') { %><% if (databaseType === 'sql' || databaseType === 'mongodb') { %>
         <%= entityInstance %>SearchRepository.deleteById(id);<% } %><% if (databaseType === 'cassandra') { %>
         <%= entityInstance %>SearchRepository.delete(UUID.fromString(id));<% } %><% }

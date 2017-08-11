@@ -619,6 +619,12 @@
             <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
         <%_ } _%>
+        <%_ if (databaseType === 'mongodb' && reactive !== 'no') { _%>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
+        </dependency>
+        <%_ } _%>
         <%_ if (databaseType === 'cassandra') { _%>
         <dependency>
             <groupId>org.springframework.boot</groupId>

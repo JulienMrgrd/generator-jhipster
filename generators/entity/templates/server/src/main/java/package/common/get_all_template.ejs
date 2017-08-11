@@ -31,11 +31,13 @@
         return <% if (reactive === 'no') { %><%= entityListToDtoListReference %>(<%= entityInstancePlural %>);<% } else { %> <%= entityInstancePlural %><%= entityFluxToDtoFluxReference %>; <% } %><% } else { %>
         return <%= entityInstance %>Repository.<% if (fieldsContainOwnerManyToMany) { %>findAllWithEagerRelationships<% } else { %>findAll<% } %>();<% } %>
     <% } if (pagination !== 'no') { %>
-    public ResponseEntity<List<<%= instanceType %>>> getAll<%= entityClassPlural %>(@ApiParam Pageable pageable<% if (fieldsContainNoOwnerOneToOne) { %>, @RequestParam(required = false) String filter<% } %>) {<%- include('get_all_stream_template', {viaService: viaService}); -%>
+    public <% if (reactive === 'yes') { %>Mono<ResponseEntity<List<<%= instanceType %>>>><% } else { %>ResponseEntity<List<<%= instanceType %>>><% } %> getAll<%= entityClassPlural %>(@ApiParam Pageable pageable<% if (fieldsContainNoOwnerOneToOne) { %>, @RequestParam(required = false) String filter<% } %>) {<%- include('get_all_stream_template', {viaService: viaService}); -%>
         log.debug("REST request to get a page of <%= entityClassPlural %>");<% if (viaService) { %>
-        Page<<%= instanceType %>> page = <%= entityInstance %>Service.findAll(pageable);<% } else { %>
-        Page<<%= entityClass %>> page = <%= entityInstance %>Repository.findAll(pageable);<% } %>
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/<%= entityApiUrl %>");
+        <% if (reactive === 'yes') { %>Flux<% } else { %>Page<% } %><<%= instanceType %>> page = <%= entityInstance %>Service.findAll(pageable);<% } else { %>
+        <% if (reactive === 'yes') { %>Flux<% } else { %>Page<% } %><<%= entityClass %>> page = <%= entityInstance %>Repository.findAll(pageable);<% } %>
+        <% if (reactive === 'yes') { %>Mono<Long> size = <%= entityInstance %><% if (viaService !== 'no') { %>Service<% } else { %>Repository<% } %>.count();
+        return Mono.when(page.collectList(), size, (List<<%= instanceType %>> list, Long totalNumber) ->
+            new ResponseEntity<>(list, PaginationUtil.generatePaginationHttpHeaders(pageable,list,totalNumber,"/api/<%= entityApiUrl %>"), HttpStatus.OK));<%_ } else { %>HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/<%= entityApiUrl %>");
         return new ResponseEntity<>(<% if (!viaService && dto === 'mapstruct') { %><%= entityListToDtoListReference %>(page.getContent())<% } else { %>page.getContent()<% } %>, headers, HttpStatus.OK);
-    <% } -%>
-}
+    <% }} %>
+    }

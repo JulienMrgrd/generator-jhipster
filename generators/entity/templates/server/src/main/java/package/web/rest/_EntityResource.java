@@ -26,6 +26,9 @@ import <%=packageName%>.domain.<%= entityClass %>;
 import <%=packageName%>.service.<%= entityClass %>Service;<% } else { %>
 import <%=packageName%>.repository.<%= entityClass %>Repository;<% if (searchEngine === 'elasticsearch') { %>
 import <%=packageName%>.repository.search.<%= entityClass %>SearchRepository;<% }} %>
+<%_ if (reactive !=='no') { _%>
+import <%=packageName%>.web.rest.util.AsyncUtil;
+<%_ } _%>
 import <%=packageName%>.web.rest.util.HeaderUtil;<% if (pagination !== 'no') { %>
 import <%=packageName%>.web.rest.util.PaginationUtil;<% } %>
 <%_ if (dto === 'mapstruct') { _%>

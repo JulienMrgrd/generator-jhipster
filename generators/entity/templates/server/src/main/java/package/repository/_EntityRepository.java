@@ -36,6 +36,7 @@ import org.springframework.data.repository.query.Param;<% } %>
 _%>
 import java.util.List;<% if (fieldsContainOwnerManyToMany === true) { %>
 import java.util.Optional;<%_ } _%><% }} %><% if (databaseType === 'mongodb'&& reactive === 'yes') { %>
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository;<% } %><% if (databaseType === 'mongodb'&& reactive === 'no') { %>import org.springframework.data.mongodb.repository.MongoRepository;<% } %>
 <% if (databaseType === 'cassandra') { %>
 
@@ -49,7 +50,8 @@ import java.time.ZonedDateTime;<% } %>
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;<% } %>
+import java.util.UUID;<% } %><% if (reactive === 'yes') { %>
+import reactor.core.publisher.Flux;<% } %>
 
 <%_ if (databaseType === 'sql') { _%>
 /**
@@ -83,6 +85,8 @@ public interface <%=entityClass%>Repository extends <% if (databaseType === 'sql
     Optional<<%=entityClass%>> findOneWithEagerRelationships(@Param("id") Long id);
     <%_ } _%>
 
+    <%_ if (reactive === 'yes' && pagination!=='no') { _%>
+    Flux<<%=entityClass%>> findAllBy(Pageable pageable);<% } %>
 }
 <%_ } if (databaseType === 'cassandra') { _%>
 @Repository

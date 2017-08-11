@@ -52,6 +52,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
 import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+<%_ if (reactive !== 'no') { _%>
+import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
+<%_ } _%>
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 <%_ } _%>
 <%_ if (databaseType === 'sql') { _%>
@@ -67,6 +70,9 @@ import java.util.List;
 @Configuration
 <%_ if (databaseType === 'mongodb') { _%>
 @EnableMongoRepositories("<%=packageName%>.repository")
+<%_ } _%>
+<%_ if (reactive !== 'no') { _%>
+@EnableReactiveMongoRepositories("com.mycompany.myapp.repository")
 <%_ } _%>
 @Profile(JHipsterConstants.SPRING_PROFILE_CLOUD)
 public class CloudDatabaseConfiguration extends AbstractCloudConfig {

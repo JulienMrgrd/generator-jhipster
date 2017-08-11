@@ -57,6 +57,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.MongoCustomConversions;
 import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+<%_ if (reactive !== 'no') { _%>
+import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRepositories;
+<%_ } _%>
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;<% } %>
 <%_ if (databaseType === 'sql') { _%>
 import org.springframework.core.task.TaskExecutor;
@@ -81,6 +84,9 @@ import java.util.List;
 @EnableElasticsearchRepositories("<%=packageName%>.repository.search")<% } %><% if (databaseType === 'mongodb') { %>
 @Profile("!" + JHipsterConstants.SPRING_PROFILE_CLOUD)
 @EnableMongoRepositories("<%=packageName%>.repository")
+<%_ if (reactive !== 'no') { _%>
+@EnableReactiveMongoRepositories("com.mycompany.myapp.repository")
+<%_ } _%>
 @Import(value = MongoAutoConfiguration.class)
 @EnableMongoAuditing(auditorAwareRef = "springSecurityAuditorAware")<% } %>
 public class DatabaseConfiguration {
