@@ -41,10 +41,18 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 <%_ } _%>
 import org.springframework.stereotype.Service;
+<%_ if (reactive === 'yes') { _%>
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import com.mycompany.myapp.web.rest.util.HeaderUtil;
+import org.springframework.http.ResponseEntity;
+<%_ } else { %>
+import java.util.Optional;
+<%_ } _%>
 <%_ if (databaseType === 'sql') { _%>
 import org.springframework.transaction.annotation.Transactional;
 <%_ } _%>
-import java.util.Optional;<% if (dto === 'mapstruct' && (pagination === 'no' ||  fieldsContainNoOwnerOneToOne === true)) { %>
+<% if (dto === 'mapstruct' && (pagination === 'no' ||  fieldsContainNoOwnerOneToOne === true)) { %>
 import java.util.LinkedList;<% } %><% if (pagination === 'no' ||  fieldsContainNoOwnerOneToOne === true) { %>
 import java.util.List;<% } %><% if (databaseType === 'cassandra') { %>
 import java.util.UUID;<% } %><% if (fieldsContainNoOwnerOneToOne === true || (pagination === 'no' && ((searchEngine === 'elasticsearch' && !viaService) || dto === 'mapstruct'))) { %>
@@ -72,7 +80,7 @@ public class <%= serviceClassName %> <% if (service === 'serviceImpl') { %>imple
     <%_ if (service === 'serviceImpl') { _%>
     @Override
     <%_ } _%>
-    public <%= instanceType %> save(<%= instanceType %> <%= instanceName %>) {
+    public <% if (reactive === 'yes') { %>Mono<<%= instanceType %>><% } else { %><%= instanceType %><% } %> save(<%= instanceType %> <%= instanceName %>) {
         log.debug("Request to save <%= entityClass %> : {}", <%= instanceName %>);<%- include('../../common/save_template', {viaService: viaService, returnDirectly: true}); -%>
     }
 
@@ -112,7 +120,7 @@ public class <%= serviceClassName %> <% if (service === 'serviceImpl') { %>imple
     <%_ if (databaseType === 'sql') { _%>
     @Transactional(readOnly = true)
     <%_ } _%>
-    public Optional<<%= instanceType %>> findOne(<%= pkType %> id) {
+    public <% if (reactive === 'yes') { %>Mono<<%= instanceType %>><% } else { %>Optional<<%= instanceType %>><% } %> findOne(<%= pkType %> id) {
         log.debug("Request to get <%= entityClass %> : {}", id);<%- include('../../common/get_template', {viaService: viaService, returnDirectly:true}); -%>
     }
 
@@ -124,7 +132,7 @@ public class <%= serviceClassName %> <% if (service === 'serviceImpl') { %>imple
     <%_ if (service === 'serviceImpl') { _%>
     @Override
     <%_ } _%>
-    public void delete(<%= pkType %> id) {
+    public <% if (reactive === 'yes') { %>Mono<ResponseEntity<Void>><% } else { %>void<% } %> delete(<%= pkType %> id) {
         log.debug("Request to delete <%= entityClass %> : {}", id);<%- include('../../common/delete_template', {viaService: viaService}); -%>
     }
     <%_ if (searchEngine === 'elasticsearch') { _%>

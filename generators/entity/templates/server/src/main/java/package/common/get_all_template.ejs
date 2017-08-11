@@ -21,12 +21,14 @@
     const instanceName = (dto === 'mapstruct') ? entityInstance + 'DTO' : entityInstance;
     const mapper = entityInstance + 'Mapper';
     const entityListToDtoListReference = mapper + '.' + 'toDto';
+    const entityFluxToDtoFluxReference = '.map(' + mapper + '::toDto)';
+    const listOrFlux  = (reactive === 'yes') ? 'Flux' : 'List';
     if (pagination === 'no') { %>
-    public List<<%= instanceType %>> getAll<%= entityClassPlural %>(<% if (fieldsContainNoOwnerOneToOne) { %>@RequestParam(required = false) String filter<% } %>) {<%- include('get_all_stream_template', {viaService: viaService}); -%>
+    public <%= listOrFlux %><<%= instanceType %>> getAll<%= entityClassPlural %>(<% if (fieldsContainNoOwnerOneToOne) { %>@RequestParam(required = false) String filter<% } %>) {<%- include('get_all_stream_template', {viaService: viaService}); -%>
         log.debug("REST request to get all <%= entityClassPlural %>");<% if (viaService) { %>
         return <%= entityInstance %>Service.findAll();<% } else if (dto === 'mapstruct') { %>
-        List<<%= entityClass %>> <%= entityInstancePlural %> = <%= entityInstance %>Repository.<% if (fieldsContainOwnerManyToMany) { %>findAllWithEagerRelationships<% } else { %>findAll<% } %>();
-        return <%= entityListToDtoListReference %>(<%= entityInstancePlural %>);<% } else { %>
+        <%= listOrFlux %><<%= entityClass %>> <%= entityInstancePlural %> = <%= entityInstance %>Repository.<% if (fieldsContainOwnerManyToMany) { %>findAllWithEagerRelationships<% } else { %>findAll<% } %>();
+        return <% if (reactive === 'no') { %><%= entityListToDtoListReference %>(<%= entityInstancePlural %>);<% } else { %> <%= entityInstancePlural %><%= entityFluxToDtoFluxReference %>; <% } %><% } else { %>
         return <%= entityInstance %>Repository.<% if (fieldsContainOwnerManyToMany) { %>findAllWithEagerRelationships<% } else { %>findAll<% } %>();<% } %>
     <% } if (pagination !== 'no') { %>
     public ResponseEntity<List<<%= instanceType %>>> getAll<%= entityClassPlural %>(@ApiParam Pageable pageable<% if (fieldsContainNoOwnerOneToOne) { %>, @RequestParam(required = false) String filter<% } %>) {<%- include('get_all_stream_template', {viaService: viaService}); -%>

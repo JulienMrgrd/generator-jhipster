@@ -90,14 +90,17 @@ public class <%= entityClass %>Resource {
      */
     @PostMapping("/<%= entityApiUrl %>")
     @Timed
-    public ResponseEntity<<%= instanceType %>> create<%= entityClass %>(<% if (validation) { %>@Valid <% } %>@RequestBody <%= instanceType %> <%= instanceName %>) throws URISyntaxException {
+    public <% if (reactive === 'yes') { %>Mono<ResponseEntity<<%= instanceType %>>><% }else { %>ResponseEntity<<%= instanceType %>><% }%> create<%= entityClass %>(<% if (validation) { %>@Valid <% } %>@RequestBody <%= instanceType %> <%= instanceName %>) throws URISyntaxException {
         log.debug("REST request to save <%= entityClass %> : {}", <%= instanceName %>);
         if (<%= instanceName %>.getId() != null) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new <%= entityInstance %> cannot already have an ID")).body(null);
+            return <% if (reactive === 'yes') { %>Mono.just(<% } %>ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new <%= entityInstance %> cannot already have an ID")).body(null)<% if (reactive === 'yes') { %>)<% } %>;
         }<%- include('../../common/save_template', {viaService: viaService, returnDirectly: false}); -%>
-        return ResponseEntity.created(new URI("/api/<%= entityApiUrl %>/" + result.getId()))
+        <% if (reactive === 'no') { %>return ResponseEntity.created(new URI("/api/<%= entityApiUrl %>/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+            .body(result);<% } else { %>return result.map((<%= instanceType %> saved<%= instanceType%>) ->
+            ResponseEntity.created(URI.create("/api/<%= entityApiUrl %>/" + saved<%= instanceType%>.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, saved<%= instanceType%>.getId().toString()))
+            .body(saved<%= instanceType%>));<% } %>
     }
 
     /**
@@ -116,12 +119,12 @@ public class <%= entityClass %>Resource {
         if (<%= instanceName %>.getId() == null) {
             return create<%= entityClass %>(<%= instanceName %>);
         }<%- include('../../common/save_template', {viaService: viaService, returnDirectly: false}); -%>
-        <% if (reactive === 'yes') { %>return result.map((<%= entityClass %> saved<%= entityClass %>) ->
-            ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, saved<%= entityClass %>.getId()))
-            .body(saved<%= entityClass %>));<% } else { %>return ResponseEntity.ok()
+        <% if (reactive === 'no') { %>return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, <%= instanceName %>.getId().toString()))
-            .body(result);<% } %>
+            .body(result);<% } else { %>return result.map((<%= entityClass %><% if (dto === 'mapstruct') { %>DTO<% } %> saved<%= entityClass %>) ->
+            ResponseEntity.ok()
+                .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, saved<%= entityClass %>.getId()))
+                .body(saved<%= entityClass %>));<% } %>
     }
 
     /**

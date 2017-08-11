@@ -28,10 +28,17 @@ import <%=packageName%>.domain.<%= entityClass %>;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 <%_ } _%>
+<%_ if (reactive === 'yes') { _%>
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import com.mycompany.myapp.web.rest.util.HeaderUtil;
+import org.springframework.http.ResponseEntity;
+<%_ } else { %>
+import java.util.Optional;
+<%_ } _%>
 <%_ if (pagination === 'no' || fieldsContainNoOwnerOneToOne === true) { _%>
 import java.util.List;
 <%_ } _%>
-import java.util.Optional;
 
 /**
  * Service Interface for managing <%= entityClass %>.
@@ -44,7 +51,7 @@ public interface <%= entityClass %>Service {
      * @param <%= instanceName %> the entity to save
      * @return the persisted entity
      */
-    <%= instanceType %> save(<%= instanceType %> <%= instanceName %>);
+    <% if (reactive === 'yes') { %>Mono<<%= instanceType %>><% } else { %><%= instanceType %><% } %> save(<%= instanceType %> <%= instanceName %>);
 
     /**
      *  Get all the <%= entityInstancePlural %>.
@@ -68,14 +75,14 @@ public interface <%= entityClass %>Service {
      *  @param id the id of the entity
      *  @return the entity
      */
-    Optional<<%= instanceType %>> findOne(<%= pkType %> id);
+    <% if (reactive === 'yes') { %>Mono<<%= instanceType %>><% } else { %>Optional<<%= instanceType %>><% } %> findOne(<%= pkType %> id);
 
     /**
      *  Delete the "id" <%= entityInstance %>.
      *
      *  @param id the id of the entity
      */
-    void delete(<%= pkType %> id);<% if (searchEngine === 'elasticsearch') { %>
+    <% if (reactive === 'yes') { %>Mono<ResponseEntity<Void>><% } else { %>void<% } %> delete(<%= pkType %> id);<% if (searchEngine === 'elasticsearch') { %>
 
     /**
      * Search for the <%= entityInstance %> corresponding to the query.
