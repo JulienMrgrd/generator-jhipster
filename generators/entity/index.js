@@ -711,6 +711,9 @@ module.exports = EntityGenerator.extend({
             } else {
                 this.pkType = 'Long';
             }
+            if (this.databaseType !== 'mongodb' && this.databaseType !== 'cassandra') {
+                this.reactive = 'no';
+            }
         },
 
         insight() {

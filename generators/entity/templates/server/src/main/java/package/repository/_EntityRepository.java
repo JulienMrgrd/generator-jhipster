@@ -85,7 +85,7 @@ public interface <%=entityClass%>Repository extends <% if (databaseType === 'sql
     Optional<<%=entityClass%>> findOneWithEagerRelationships(@Param("id") Long id);
     <%_ } _%>
 
-    <%_ if (reactive === 'yes' && pagination!=='no') { _%>
+    <%_ if (reactive === 'yes' && pagination!=='no' && databaseType === 'mongodb') { _%>
     Flux<<%=entityClass%>> findAllBy(Pageable pageable);<% } %>
 }
 <%_ } if (databaseType === 'cassandra') { _%>

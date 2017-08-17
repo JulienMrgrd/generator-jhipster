@@ -70,10 +70,9 @@ import java.util.List;
 @Configuration
 <%_ if (databaseType === 'mongodb') { _%>
 @EnableMongoRepositories("<%=packageName%>.repository")
-<%_ } _%>
 <%_ if (reactive !== 'no') { _%>
 @EnableReactiveMongoRepositories("com.mycompany.myapp.repository")
-<%_ } _%>
+<%_ }} _%>
 @Profile(JHipsterConstants.SPRING_PROFILE_CLOUD)
 public class CloudDatabaseConfiguration extends AbstractCloudConfig {
 

@@ -310,6 +310,9 @@ function askForDTO() {
 function askForReactive() {
     // don't prompt if data is imported from a file or server is skipped
     if (this.useConfigurationFile || this.skipServer) {
+        if (this.databaseType !== 'mongodb' && this.databaseType !== 'cassandra') {
+            this.reactive = 'no';
+        }
         return;
     }
     if (this.databaseType !== 'mongodb' && this.databaseType !== 'cassandra') {
