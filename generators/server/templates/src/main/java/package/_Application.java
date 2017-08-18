@@ -137,9 +137,9 @@ public class <%= mainClass %> {
         <%_ } _%>
     }
 
-    // TODO: delete ?
-    @Bean
-    public JHipsterProperties jHipsterProperties(){
-        return new JHipsterProperties();
-    }
+//    // TODO: delete ?
+//    @Bean
+//    public JHipsterProperties jHipsterProperties(){
+//        return new JHipsterProperties();
+//    }
 }
