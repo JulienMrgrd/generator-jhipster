@@ -76,6 +76,7 @@ dependencyManagement {
 defaultTasks 'bootRun'
 
 bootWar {
+    mainClass = '<%= packageName %>.<%= mainClass %>'
     enabled = false
 }
 
@@ -307,7 +308,9 @@ dependencies {
     <%_ } _%>
     <%_ if (databaseType === 'mongodb') { _%>
     compile "org.springframework.boot:spring-boot-starter-data-mongodb"
-    <%_ } _%>
+    <%_ if (reactive !== 'no') { _%>
+    compile "org.springframework.boot:spring-boot-starter-data-mongodb-reactive"
+    <%_ }} _%>
     <%_ if (messageBroker === 'kafka') { _%>
     compile "org.springframework.cloud:spring-cloud-stream"
     compile "org.springframework.cloud:spring-cloud-stream-binder-kafka"
@@ -317,6 +320,9 @@ dependencies {
     compile ("org.springframework.boot:spring-boot-starter-web") {
         exclude module: 'spring-boot-starter-tomcat'
     }
+    <%_ if (reactive !== 'no') { _%>
+    compile "org.springframework.boot:spring-boot-starter-webflux"
+    <%_ } _%>
     compile "org.springframework.boot:spring-boot-starter-undertow"
     <%_ if (websocket === 'spring-websocket') { _%>
     compile "org.springframework.boot:spring-boot-starter-websocket"
