@@ -670,12 +670,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <%_ if (databaseType === 'mongodb') { _%>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency>
-        <%_ } _%>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
@@ -700,7 +694,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <%_ if (reactive) { _%>
+        <%_ if (reactive !== 'no') { _%>
         <!-- reactive -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
