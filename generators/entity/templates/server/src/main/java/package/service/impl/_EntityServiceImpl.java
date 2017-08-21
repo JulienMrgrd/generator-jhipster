@@ -96,9 +96,9 @@ public class <%= serviceClassName %> <% if (service === 'serviceImpl') { %>imple
     <%_ if (databaseType === 'sql') { _%>
     @Transactional(readOnly = true)
     <%_ } _%>
-    public <% if (pagination !== 'no') { if (reactive === 'yes') { %> Flux<<%= instanceType %><% } else { %>Page<<%= instanceType %> <% } %><% } else { %>List<<%= instanceType %><% } %>> findAll(<% if (pagination !== 'no') { %>Pageable pageable<% } %>) {
+    public <% if (reactive === 'yes') { %> Flux<<%= instanceType %><% } else { if (pagination !== 'no') { %>Page<<%= instanceType %> <% } else { %>List<<%= instanceType %><% }} %>> findAll(<% if (pagination !== 'no') { %>Pageable pageable<% } %>) {
         log.debug("Request to get all <%= entityClassPlural %>");
-        <% if (reactive === 'yes') { %>return <%= entityInstance %>Repository.findAllBy(pageable)<% if (dto !== 'mapstruct') { %>;<% } else { %>.map(<%= entityInstance %>Mapper::toDto);<% }  } else { %><%_ if (pagination === 'no') { _%>
+        <% if (reactive === 'yes') { %>return <%= entityInstance %>Repository.findAll<% if (pagination !== 'no') { %>By(pageable)<% } else { %>()<% } %><% if (dto !== 'mapstruct') { %>;<% } else { %>.map(<%= entityInstance %>Mapper::toDto);<% }  } else { %><%_ if (pagination === 'no') { _%>
         return <%= entityInstance %>Repository.<% if (fieldsContainOwnerManyToMany === true) { %>findAllWithEagerRelationships<% } else { %>findAll<% } %>()<% if (dto === 'mapstruct') { %>.stream()
             .map(<%= entityToDtoReference %>)
             .collect(Collectors.toCollection(LinkedList::new))<% } %>;
@@ -165,7 +165,9 @@ public class <%= serviceClassName %> <% if (service === 'serviceImpl') { %>imple
     <%_ } _%>
 
     <%_ if (pagination !== 'no' && reactive !== 'no') { _%>
+    <%_ if (service === 'serviceImpl') { _%>
     @Override
+    <%_ } _%>
     public Mono<Long> count(){
         return <%= entityInstance %>Repository.count();
         }<% } %>

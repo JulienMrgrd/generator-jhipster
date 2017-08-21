@@ -59,7 +59,7 @@ public interface <%= entityClass %>Service {
      *  @param pageable the pagination information<% } %>
      *  @return the list of entities
      */
-    <% if (pagination !== 'no') { if (reactive === 'yes') { %> Flux<<%= instanceType %><% } else { %>Page<<%= instanceType %> <% } %><% } else { %>List<<%= instanceType %><% } %>> findAll(<% if (pagination !== 'no') { %>Pageable pageable<% } %>);
+    <% if (reactive === 'yes') { %> Flux<<%= instanceType %><% } else { if (pagination !== 'no') { %>Page<<%= instanceType %> <% } else { %>List<<%= instanceType %><% }} %>> findAll(<% if (pagination !== 'no') { %>Pageable pageable<% } %>);
     <% for (idx in relationships) { if (relationships[idx].relationshipType === 'one-to-one' && relationships[idx].ownerSide !== true) { -%>
     /**
      *  Get all the <%= entityClass %>DTO where <%= relationships[idx].relationshipNameCapitalized %> is null.

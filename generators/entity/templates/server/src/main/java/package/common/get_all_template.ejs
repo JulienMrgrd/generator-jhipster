@@ -33,7 +33,7 @@
     <% } if (pagination !== 'no') { %>
     public <% if (reactive === 'yes') { %>Mono<ResponseEntity<List<<%= instanceType %>>>><% } else { %>ResponseEntity<List<<%= instanceType %>>><% } %> getAll<%= entityClassPlural %>(@ApiParam Pageable pageable<% if (fieldsContainNoOwnerOneToOne) { %>, @RequestParam(required = false) String filter<% } %>) {<%- include('get_all_stream_template', {viaService: viaService}); -%>
         log.debug("REST request to get a page of <%= entityClassPlural %>");<% if (viaService) { %>
-        <% if (reactive === 'yes') { %>Flux<% } else { %>Page<% } %><<%= instanceType %>> page = <%= entityInstance %>Service.findAll(pageable);<% } else { %>
+        <% if (reactive === 'yes') { %>Flux<% } else { %>Page<% } %><<%= instanceType %>> page = <%= entityInstance %>Service.findAll<% if (reactive !== 'no') { %>By<% } %>(pageable);<% } else { %>
         <% if (reactive === 'yes') { %>Flux<% } else { %>Page<% } %><<%= entityClass %>> page = <%= entityInstance %>Repository.findAll<% if (reactive !== 'no') { %>By<% } %>(pageable);<% } %>
         <% if (reactive === 'yes') { %>Mono<Long> size = <%= entityInstance %><% if (viaService) { %>Service<% } else { %>Repository<% } %>.count();
         return Mono.when(page.collectList(), size, (List<<%= entityClass %>> list, Long totalNumber) ->
